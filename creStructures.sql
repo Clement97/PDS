@@ -105,8 +105,7 @@ ALTER TABLE `Administrateur`
 -- Index pour la table `Animal`
 --
 ALTER TABLE `Animal`
-  ADD PRIMARY KEY (`idAnimal`),
-  ADD KEY `fk_animal_client` (`idClient`);
+  ADD PRIMARY KEY (`idAnimal`);
 
 --
 -- Index pour la table `Client`
@@ -118,15 +117,13 @@ ALTER TABLE `Client`
 -- Index pour la table `Operateur`
 --
 ALTER TABLE `Operateur`
-  ADD KEY `idOperateur` (`idOperateur`);
+  ADD PRIMARY KEY (`idOperateur`);
 
 --
 -- Index pour la table `Reservation`
 --
 ALTER TABLE `Reservation`
-  ADD PRIMARY KEY (`idReservation`),
-  ADD KEY `fk_reservation_client` (`idClient`),
-  ADD KEY `fk_reservation_animal` (`idAnimal`);
+  ADD PRIMARY KEY (`idReservation`);
 
 --
 -- AUTO_INCREMENT pour les tables exportées
@@ -136,7 +133,7 @@ ALTER TABLE `Reservation`
 -- AUTO_INCREMENT pour la table `Administrateur`
 --
 ALTER TABLE `Administrateur`
-  MODIFY `idAdministrateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2000000000;
+  MODIFY `idAdministrateur` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `Animal`
 --
@@ -151,7 +148,7 @@ ALTER TABLE `Client`
 -- AUTO_INCREMENT pour la table `Operateur`
 --
 ALTER TABLE `Operateur`
-  MODIFY `idOperateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1500000000;
+  MODIFY `idOperateur` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `Reservation`
 --
