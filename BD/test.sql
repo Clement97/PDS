@@ -199,6 +199,13 @@ insert into Operateur(login,password,nom,prenom) values('log1','mdp1','nom1','pr
 insert into Administrateur(login,password,nom,prenom) values('log1','mdp1','nom1','prenom1');
 
 
+select * from Client;
+select * from Animal;
+select * from Reservation;
+select * from Operateur;
+select * from Administrateur;
+
+
 
 /*
 
