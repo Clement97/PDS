@@ -40,8 +40,8 @@ CREATE TABLE `Animal` (
   `type` varchar(255) NOT NULL,
   `nom` varchar(255) NOT NULL,
   `identification` varchar(255) NOT NULL,
-  `carnetVaccinationValide` tinyint(1) DEFAULT NULL,
-  `dateUpload` date DEFAULT NULL
+  `carnetVaccinationValide` tinyint(1) NOT NULL,
+  `dateUpload` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -88,7 +88,9 @@ CREATE TABLE `Reservation` (
   `dateReservation` date NOT NULL,
   `dateDebut` date NOT NULL,
   `dateFin` date NOT NULL,
-  `montant` int(11) NOT NULL
+  `montant` int(11) NOT NULL,
+  `valide` tinyint(1) NOT NULL
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
