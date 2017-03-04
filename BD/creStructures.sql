@@ -89,10 +89,9 @@ CREATE TABLE `Reservation` (
   `dateDebut` date NOT NULL,
   `dateFin` date NOT NULL,
   `montant` int(11) NOT NULL,
-  `valide` tinyint(1) NOT NULL
-
+  `valide` tinyint(1) NOT NULL,
+  `isolé` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 --
 -- Index pour les tables exportées
 --
