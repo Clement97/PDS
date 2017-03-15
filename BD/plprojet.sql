@@ -119,7 +119,6 @@ begin
   where (idReservation=idR);
 end/ 
 
-CALL P_ANNULE_RESERVATION(20)/
 
 
 DELIMITER ;

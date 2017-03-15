@@ -203,6 +203,5 @@ insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,mont
 insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (6,1,'2016-07-10','2016-07-12','2016-07-18',F_Definir_Montant(DATEDIFF(dateFin,dateDebut),(select type from animal where idAnimal=6),isolé,0),1,0);
 insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (6,1,'2016-07-01','2016-07-02','2016-07-10',F_Definir_Montant(DATEDIFF(dateFin,dateDebut),(select type from animal where idAnimal=6),isolé,0),1,1);
 
-
 insert into Operateur(login,password,nom,prenom) values('log1','mdp1','nom1','prenom1');
 insert into Administrateur(login,password,nom,prenom) values('log1','mdp1','nom1','prenom1');
