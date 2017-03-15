@@ -16,14 +16,17 @@ o 30 chiens en communauté, 10 chiens isolés
 o 18 rongeurs avec leur cage en communauté, 5 rongeurs isolés.
 
 Formulez dans le langage SQL les demandes ci-dessous :
-Quel est le client ayant réservé le plus de journées en 2016 ? 
+
+*/
+
+-- R1 : Quel est le client ayant réservé le plus de journées en 2016 ? 
 
 select idClient,nom,prenom,sum(datediff(dateFin,dateDebut)) as NbrJourReservésMax
 from Client join Reservation using(idClient)
 group by idClient
 limit 1;
 
-Combien de clients ont-ils réservé plus de 8 jours au total en 2016 ?
+-- R2 : Combien de clients ont-ils réservé plus de 8 jours au total en 2016 ?
 
 select count(*)
 from (select idClient,nom,prenom,sum(datediff(dateFin,dateDebut)) as NbrJourReservésMax
@@ -32,22 +35,36 @@ from (select idClient,nom,prenom,sum(datediff(dateFin,dateDebut)) as NbrJourRese
 		group by idClient) as SubQuery
 where NbrJourReservésMax>8;
 
-Quelle est la capacité totale de la pension à ce jour pour chaque type d’animal ?
+-- R3: Quelle est la capacité totale de la pension à ce jour pour chaque type d’animal ?
 
-select type,isolé,nbrPlaceMax-count(*) as nbrPlaceDispo
-from (
-	select type,isolé,count(*),IF(isolé='1',IF(type = 'chien',10,IF(type = 'chat',10,IF(type = 'rongeur',5,0))),IF(type = 'chien',30,IF(type = 'chat',42,IF(type = 'rongeur',18,0)))) as NbrPlaceMax
-	from Animal join Reservation using (idAnimal)
-	where ('2016-02-21' between dateDebut and dateFin) and valide=1
-	group by NbrPlaceMax) as SubQuery
-group by NbrPlaceMax
+	select distinct T1.type as Type,IF(T1.isolé,'isolé','groupe') as Catégorie ,NbrPlaceMax-IF(PlaceUtilise is NULL,0,PlaceUtilise) as PlacesDisponibles
+	from 		
+		(select distinct type,isolé,IF(isolé='1',IF(type = 'chien',10,IF(type = 'chat',10,IF(type = 'rongeur',5,0))),IF(type = 'chien',30,IF(type = 'chat',42,IF(type = 'rongeur',18,0)))) as NbrPlaceMax
+		from Animal join Reservation using (idAnimal)) as T1
+	left outer join
+		(select type,isolé,count(*) as PlaceUtilise
+		from Animal join Reservation using (idAnimal)
+		where ('2016-02-21' between dateDebut and dateFin) and valide=1
+		group by concat(type,isolé)) as T2
+	on concat(T1.isolé,T1.type)=concat(T2.isolé,T2.type)
+	order by PlacesDisponibles DESC
+
+--modif requête précédente pr faire avec le NOW() date d'auj et donc modif alimDonnes de façon à mettre des dates en avril-mai-juin 2017
+
+-- R4 : Quel est le chiffre d’affaire réalisé en Janvier 2016 ?
+
+select sum(Montant) as ChiffreAffaireJanvier2016
+from reservation
+where YEAR(dateReservation)='2016' and MONTH(dateReservation)='01' and (valide=1)
+
+-- R5: Quel est le taux d’occupation moyen du mois de Juillet 2016 pour les rongeurs ?
+
+select IF(isolé,'isolé','groupe')as Catégorie,concat(IF(isolé,100*(DATEDIFF('2016-07-01',dateDebut)+DATEDIFF(dateFin,'2016-07-31')+31)/(5*31),100*(DATEDIFF('2016-07-01',dateDebut)+DATEDIFF(dateFin,'2016-07-31')+31)/(18*31)),'%') as TauxOccupationJuillet2016
+from Reservation join animal using(idAnimal)
+where (type='rongeur') and (MONTH(dateDebut)='07') and (YEAR(dateDebut)='2016') and (valide=1)
+group by isolé
 
 
-Quel est le chiffre d’affaire réalisé en Janvier 2016 ?
-Quel est le taux d’occupation moyen du mois de Juillet 2016 pour les rongeurs ?
+-- modif alim pr des resa qui sont a cheval sur juin/juillet ou juillet/aout
 
-*/
-
--- select type,isolé, IF(isolé='1',IF(type = 'chien',10,IF(type = 'chat',10,IF(type = 'rongeur',5,0))),IF(type = 'chien',30,IF(type = 'chat',42,IF(type = 'rongeur',18,0)))) as NbrPlaceMax
--- from Animal join Reservation using (idAnimal);
 

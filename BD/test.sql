@@ -1,201 +1,179 @@
-drop table Operateur, Reservation, Animal, Administrateur;
-drop table Client;
+DELIMITER /
+
+DROP FUNCTION IF EXISTS F_Definir_Montant/
+DROP FUNCTION IF EXISTS F_3Resa_Meme_Periode/
+DROP PROCEDURE IF EXISTS F_3Resa_Meme_Periode/
+
+DROP PROCEDURE IF EXISTS P_Reservation/
+
+CREATE FUNCTION F_Definir_Montant(duree int,type varchar(255),categorie tinyint,promenade tinyint) RETURNS INT
+begin
+    DECLARE PrixJour int;
+    DECLARE Montant int;
+
+    IF(type = 'chient')
+          THEN set PrixJour=40;
+      ELSE  IF(type = 'chat')
+                THEN set PrixJour=30;
+              ELSE set PrixJour=15;
+            END IF;
+    END IF;
+
+    IF(catégorie='0') THEN set PrixJour=PrixJour-5;END IF;
+    IF(promenade='1') THEN set PrixJour=PrixJour+5;END IF;
+
+    set Montant=Durée*PrixJour;
+    return Montant;
+end/
+
+CREATE Procedure F_3Resa_Meme_Periode(idC int,dateDebPotentiel date, dateFinPotentiel date)
+begin
+
+  Declare firstDate date;
+  Declare lastDate date;
+  set firstDate = (select min(dateDebut) from reservation where idClient=idC);
+  set lastDate =(select max(dateFin) from reservation where idClient=idC);
+  select firstDate;
+  select lastDate;
+      WHILE (firstDate!=lastDate) DO 
+        set firstDate=DATE_ADD(firstDate,interval 1 day);    
+          Begin
+            DECLARE nbrResaParJour TINYINT DEFAULT 0;
+            DECLARE curs_dateD date;
+            DECLARE curs_dateF date;
+            DECLARE finCurs TINYINT DEFAULT 0;
+            DECLARE curs_interval CURSOR
+              FOR SELECT dateDebut,dateFin  -- remplacer cette requête par une préparé )
+              FROM Reservation
+              WHERE (idClient=idC) and (valide=1); 
+
+            DECLARE CONTINUE HANDLER FOR NOT FOUND SET finCurs = 1; 
+
+            OPEN curs_interval;  -- Ouverture du curseur
+              valideJour :LOOP
+                  FETCH curs_interval INTO curs_dateD,curs_dateF;    
+                  IF firstDate between curs_dateD and curs_dateF then set nbrResaParJour=nbrResaParJour+1; END IF;
+                  IF finCurs=1 THEN LEAVE valideJour; END IF;      -- Structure IF pour quitter la boucle à la fin des résultats
+              END LOOP valideJour;
+            CLOSE curs_interval;     -- Fermeture du curseur
+             if(nbrResaParJour>3)then select 'return false';end if;
+          End;
+
+      END WHILE;
+        
 
 
--- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
---
--- Client :  localhost:8889
--- Généré le :  Lun 20 Février 2017 à 15:59
--- Version du serveur :  5.6.28
--- Version de PHP :  7.0.10
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+      -- déployer un curseur et voir pour chaque dateDebPotentiel et dateFinPotentiel si cela se trouve entre
+      -- mettre dateDebPotentiel et dateFinPotentiel en arg
 
---
--- Base de données :  `PDS`
---
+end/
 
--- --------------------------------------------------------
+CALL F_3Resa_Meme_Periode(1,'2012-02-20','2012-03-20')/
 
---
--- Structure de la table `Administrateur`
---
+-- TYPE mon_tableau IS VARRAY(8) OF VARCHAR2(10) ; 
+-- TYPE TabInt IS VARRAY(select count(*) from reservation where )
+  -- select firstDate;
+  -- select lastDate;
 
-CREATE TABLE `Administrateur` (
-  `idAdministrateur` int(11) NOT NULL,
-  `login` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `nom` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Animal`
---
-
-CREATE TABLE `Animal` (
-  `idAnimal` int(11) NOT NULL,
-  `idClient` int(11) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  `nom` varchar(255) NOT NULL,
-  `identification` varchar(255) NOT NULL,
-  `carnetVaccinationValide` tinyint(1) NOT NULL,
-  `dateUpload` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Client`
---
-
-CREATE TABLE `Client` (
-  `idClient` int(11) NOT NULL,
-  `login` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `nom` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `tel` varchar(12) NOT NULL,
-  `adresse` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Operateur`
---
-
-CREATE TABLE `Operateur` (
-  `idOperateur` int(11) NOT NULL,
-  `login` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `nom` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Reservation`
---
-
-CREATE TABLE `Reservation` (
-  `idReservation` int(11) NOT NULL,
-  `idAnimal` int(11) NOT NULL,
-  `idClient` int(11) NOT NULL,
-  `dateReservation` date NOT NULL,
-  `dateDebut` date NOT NULL,
-  `dateFin` date NOT NULL,
-  `montant` int(11) NOT NULL,
-  `valide` tinyint(1) NOT NULL,
-  `isolé` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `Administrateur`
---
-ALTER TABLE `Administrateur`
-  ADD PRIMARY KEY (`idAdministrateur`);
-
---
--- Index pour la table `Animal`
---
-ALTER TABLE `Animal`
-  ADD PRIMARY KEY (`idAnimal`);
-
---
--- Index pour la table `Client`
---
-ALTER TABLE `Client`
-  ADD PRIMARY KEY (`idClient`);
-
---
--- Index pour la table `Operateur`
---
-ALTER TABLE `Operateur`
-  ADD PRIMARY KEY (`idOperateur`);
-
---
--- Index pour la table `Reservation`
---
-ALTER TABLE `Reservation`
-  ADD PRIMARY KEY (`idReservation`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `Administrateur`
---
-ALTER TABLE `Administrateur`
-  MODIFY `idAdministrateur` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `Animal`
---
-ALTER TABLE `Animal`
-  MODIFY `idAnimal` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `Client`
---
-ALTER TABLE `Client`
-  MODIFY `idClient` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `Operateur`
---
-ALTER TABLE `Operateur`
-  MODIFY `idOperateur` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `Reservation`
---
-ALTER TABLE `Reservation`
-  MODIFY `idReservation` int(11) NOT NULL AUTO_INCREMENT;
---
--- Contraintes pour les tables exportées
---
-
---
--- Contraintes pour la table `Animal`
---
-ALTER TABLE `Animal`
-  ADD CONSTRAINT `fk_animal_client` FOREIGN KEY (`idClient`) REFERENCES `Client` (`idClient`);
-
---
--- Contraintes pour la table `Reservation`
---
-ALTER TABLE `Reservation`
-  ADD CONSTRAINT `fk_reservation_animal` FOREIGN KEY (`idAnimal`) REFERENCES `Animal` (`idAnimal`),
-  ADD CONSTRAINT `fk_reservation_client` FOREIGN KEY (`idClient`) REFERENCES `Client` (`idClient`);
+-- CREATE PROCEDURE P_Reservation(operateur tinyint,categorie tinyint,dateDebut date,duree int,idA int,promenade tinyint,valide tinyint, idC int)
+-- begin
+--   IF(DATE_ADD(NOW(),interval 6 MONTH)>dateDebut) THEN select operateur;
+--       IF(operateur='1') THEN
+--         IF(duree>7) THEN select 'impossible de réserver pour une durée supérieur à 7 jours si vous effectuez vous même la réservation' as 'Erreur:'; 
+--         ELSE 
+--           insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,idClient,NOW,dateDebut,DATE_ADD(dateDebut,interval duree day),F_Definir_Montant(DATEDIFF(dateFin,dateDebut),(select type from animal where idAnimal=idA),isolé,promenace),valide,isolé);
+--           IF(>2) then select 'impossible de réserver plus de 2 places dans la même période si vous effectuez vous même la réservation' as 'Erreur:'; ;end if;
+--         END IF;
+--       ELSE select operateur;
+--       END IF;
 
 
-insert into Client(login,password,nom,prenom,email,tel,adresse) values ('log1','mdp1','nom1','prenom1','email@hotmail.fr','0143863123','7 rue des potiers');
-insert into Client(login,password,nom,prenom,email,tel,adresse) values ('log2','mdp2','nom2','prenom2','email@hotmail.fr','0143970231','9 rue des potiers');
-insert into Client(login,password,nom,prenom,email,tel,adresse) values ('log3','mdp3','nom3','prenom3','email@hotmail.fr','0143120571','8 rue des potiers');
+--   ELSE select 'impossible de réserver 6 mois à l\'avance' as 'Erreur:' ;
+--   END IF;
+-- end/
 
-insert into Animal(idClient,type,nom,identification,carnetVaccinationValide,dateUpload) values (1,'chat','tigrou','9423XL219',1,'2015-02-11');
-insert into Animal(idClient,type,nom,identification,carnetVaccinationValide,dateUpload) values (2,'chat','edgar','0321IEZA231',1,'2015-03-11');
-insert into Animal(idClient,type,nom,identification,carnetVaccinationValide,dateUpload) values (1,'chien','jean-pierre','0231LZAE7523',1,'2015-06-01');
-insert into Animal(idClient,type,nom,identification,carnetVaccinationValide,dateUpload) values (3,'chien','luna','9932XL23',1,'2015-01-22');
-insert into Animal(idClient,type,nom,identification,carnetVaccinationValide,dateUpload) values (3,'rongeur','lerongeur','230MSAZ0214',1,'2015-06-01');
 
-insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (1,1,'2016-05-19','2016-06-21','2016-06-25',125,1,0);
-insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (2,2,'2016-04-26','2016-05-21','2016-05-29',270,1,0);
-insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (3,1,'2016-03-24','2016-02-11','2016-03-25',1505,1,0);
-insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (4,3,'2016-02-20','2016-02-21','2016-02-28',280,1,1);
-insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (5,3,'2016-01-09','2016-01-21','2016-02-12',220,1,1);
-insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (1,1,'2016-11-11','2016-12-06','2016-12-11',180,1,0);
-insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (2,2,'2016-01-01','2016-01-07','2016-01-09',75,1,1);
-insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (3,1,'2016-05-31','2016-06-05','2016-06-25',800,1,0);
 
-insert into Operateur(login,password,nom,prenom) values('log1','mdp1','nom1','prenom1');
-insert into Administrateur(login,password,nom,prenom) values('log1','mdp1','nom1','prenom1');
 
+-- CALL P_Reservation(1,1,'2020-01-01',4,2,1,4)/
+
+-- select (('2015-05-05','2015-05-25') OVERLAPS ('2015-05-03','2015-05-20'));
+
+
+
+
+DELIMITER ;
+
+  /*
+  CREATE PROCEDURE update_instruct_age()
+BEGIN
+    DECLARE v_date date;
+    DECLARE v_id int;
+    DECLARE fin TINYINT DEFAULT 0;                      
+
+
+
+    DECLARE curs_interval CURSOR
+        FOR SELECT DateNaissance,PiloteNum  -- Le SELECT récupère deux colonnes
+        FROM ac_pilotes; -- On trie les clients par ordre alphabétique
+
+    -- Gestionnaire d'erreur pour la condition NOT FOUND
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = 1; 
+
+    OPEN curs_interval;  -- Ouverture du curseur
+
+      lol :LOOP
+
+        FETCH curs_interval INTO v_date,v_id;    
+        update ac_vols
+        SET instruct_age= F_age(v_date,null)
+        where v_id=lpl_ptr_instruct;
+
+          -- Structure IF pour quitter la boucle à la fin des résultats
+          IF fin = 1 THEN 
+              LEAVE lol;
+          END IF;
+
+     END LOOP lol;
+        
+
+
+    CLOSE curs_interval;     -- Fermeture du curseur
+        
+
+END|
+
+
+P_RESERVATION (type de place, date, durée, animal, promenade, client)
+Cette procédure réserve une place à un animal donné d’un client donné pour une date donnée.
+ D’autres paramètres sont à déterminer en option. Cette procédure doit tenir compte des règles métier suivantes :
+
+la réservation ne peut excéder une semaine pour une réservation effectuée par le client lui-même.
+Une réservation n’est possible que jusque 6 mois à l’avance.
+Un client ne peut réserver plus de 2 places pour la même période lorsque la  réservation est effectuée directement par ses soins. 
+P_ANNULE_RESERVATION() 
+
+
+  DECLARE PrixJour int;
+  DECLARE Montant int;
+
+    IF(type = 'chient')
+          THEN set PrixJour=40
+      ELSE IF(type = 'chat')
+          THEN set PrixJour=30;
+      ELSE set PrixJour=15;
+    END IF;
+
+    IF(catégorie='0') THEN set PrixJour=PrixJour-5;END IF;
+    IF(promenade='1') THEN set PrixJour=PrixJour+5;END IF;
+
+    set Montant=Durée*PrixJour;
+    return Montant;
+
+    faire la fonction et les 2 procédures
+    demander si rajouter "promenade" à la structure est vrmt essentiel ?( autre que pr le montant)
+
+    faire gaf à la position de isolé par rapport à Montant(appel de la fct)
+
+  */

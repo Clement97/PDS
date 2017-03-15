@@ -15,6 +15,13 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
+/*
+Le tarif d’une place isolée est de 30€/jour pour un chat, 40€/jour pour un chien et 15€/jour pour un rongeur.
+Le tarif d’une place partagée est de 25€/jour pour un chat, 35€/jour pour un chien et 10€/jour pour un rongeur.
+Un supplément de 5€/jour est demandé si le maître souhaite pour son chien une promenade journalière en laisse dans un parc.
+
+*/
+
 
 --
 -- Structure de la table `Administrateur`
