@@ -54,7 +54,7 @@ function verifTel(){
 }
 
 function verifAdresse(){
-  var regex = /^[0-9]{1,3}[a-zA-Z]{7,}$/ ;
+  var regex = /^[0-9]{1,3}[a-zA-Z\ ]{7,}$/ ;
   champAdresse.addEventListener("blur", function(event){
     if(!regex.test(event.target.value)){
         surligne(event, true);
@@ -97,50 +97,77 @@ function verifConfMail(){
 
 
 function estLettreMinuscule(c){
-  var code =c.charAt();
-  if(code>96 || code<123){
+  var code =String.charCodeAt(c);
+  if(code>96 && code<123){
     return true;
   }
   return false;
 }
 
 function estLettreMajuscule(c){
-  var code =c.charAt();
-  if(code>64 || code<91){
+  var code =String.charCodeAt(c);
+  if(code>64 && code<91){
     return true;
   }
   return false;
 }
 
 function estChiffre(c){
-  var code =c.charAt();
-  if(code>47 || code<58){
+  var code =String.charCodeAt(c);
+  if(code>47 && code<58){
     return true;
   }
   return false;
 }
 
-function estCarSpe(s){
-  return !(estChiffre(c)&&estLettreMajuscule(c)&&estLettreMinuscule(c));
+function estCarSpe(c){
+  return !(estChiffre(c)||estLettreMajuscule(c)||estLettreMinuscule(c));
 }
 
 function contientChiffre(s){
-
+  for(var i =0; i<s.length;i++){
+    if(estChiffre(s.charAt(i))) return true;
+  }
+  return false;
 }
 
 function contientMin(s){
-
+    for(var i =0; i<s.length;i++){
+      if(estLettreMinuscule(s.charAt(i))) return true;
+    }
+    return false;
 }
 
 function contientMaj(s){
-
+  for(var i =0; i<s.length;i++){
+    if(estLettreMajuscule(s.charAt(i))) return true;
+  }
+  return false;
 }
 
 function contientCarSpe(s){
-  
+  for(var i =0; i<s.length;i++){
+    if(estCarSpe(s.charAt(i))) return true;
+  }
+  return false;
+}
+
+function tailleMin(s){
+  return (s.length>7);
 }
 
 function verifPassword(){
+  champPassword.addEventListener("blur", function(event) {
+    var chaine=event.target.value;
+    if(!(contientMaj(chaine)&&contientMin(chaine)&&contientChiffre(chaine)&&contientCarSpe(chaine)&&tailleMin(chaine))){
+        surligne(event, true);
+        return false;
+    }
+    else{
+        surligne(event, false);
+        return true;
+    }
+  });
 
 }
 
@@ -179,9 +206,9 @@ function verifConfPassword(){
     verifConfMail();
     verifPassword();
     verifConfPassword();
+    debug();
 
 
-        // element.addEventListener('blur',verifNom(element) );
 
 
 
