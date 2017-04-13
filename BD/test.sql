@@ -6,6 +6,7 @@ DROP PROCEDURE IF EXISTS F_3Resa_Meme_Periode/
 DROP FUNCTION IF EXISTS F_Resa_Meme_Animal/
 DROP PROCEDURE IF EXISTS P_Reservation/
 DROP PROCEDURE IF EXISTS P_ANNULE_RESERVATION/
+
 CREATE FUNCTION F_Definir_Montant(duree int,type varchar(255),categorie tinyint,promenade tinyint) RETURNS INT
 begin
     DECLARE PrixJour int;
@@ -133,9 +134,6 @@ DELIMITER ;
 
 
   /*
-
-  DATE_ADD(dateDebut,interval duree day)
-
 
 
 P_RESERVATION (type de place, date, durée, animal, promenade, client)
