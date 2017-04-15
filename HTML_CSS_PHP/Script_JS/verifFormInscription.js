@@ -174,15 +174,15 @@ function verifPassword(){
 function verifConfPassword(){
   champConfPassword.addEventListener("blur", function(event) {
     if(event.target.value!=champPassword.value){
-        surligne(event, true);
+        surligne(event,true);
         return false;
     }
     else{
-        surligne(event, false);
+        surligne(event,false);
         return true;
     }
   });
-}
+} 
 
 
 
@@ -206,7 +206,6 @@ function verifConfPassword(){
     verifConfMail();
     verifPassword();
     verifConfPassword();
-    debug();
 
 
 

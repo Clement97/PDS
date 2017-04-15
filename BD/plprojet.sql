@@ -1,11 +1,13 @@
 DELIMITER /
 
 DROP FUNCTION IF EXISTS F_Definir_Montant/
-DROP FUNCTION IF EXISTS F_3Resa_Meme_Periode/
-DROP PROCEDURE IF EXISTS F_3Resa_Meme_Periode/
 DROP FUNCTION IF EXISTS F_Resa_Meme_Animal/
+DROP FUNCTION IF EXISTS F_3Resa_Meme_Periode/
 DROP PROCEDURE IF EXISTS P_Reservation/
 DROP PROCEDURE IF EXISTS P_ANNULE_RESERVATION/
+
+
+
 CREATE FUNCTION F_Definir_Montant(duree int,type varchar(255),categorie tinyint,promenade tinyint) RETURNS INT
 begin
     DECLARE PrixJour int;
@@ -28,9 +30,6 @@ end/
 
 CREATE Function F_3Resa_Meme_Periode(idC int,dateDebPotentiel date, dateFinPotentiel date) returns tinyint -- return 1 <=> resa impossible
 begin
-  -- set @req=concat('select dateDebut,dateFin from Reservation where (idClient=',idC,') and (valide=1)');
-  -- select @req;
-  -- PREPARE req_intervals FROM @req;
   WHILE (dateDebPotentiel!=dateFinPotentiel) DO 
     set dateDebPotentiel=DATE_ADD(dateDebPotentiel,interval 1 day);    
       Begin
@@ -39,7 +38,7 @@ begin
         DECLARE curs_dateF date;
         DECLARE finCurs TINYINT DEFAULT 0;
         DECLARE curs_interval CURSOR
-          FOR SELECT dateDebut,dateFin  -- remplacer cette requête par une préparé 
+          FOR SELECT dateDebut,dateFin  
               FROM Reservation
               WHERE (idClient=idC) and (valide=1);
         DECLARE CONTINUE HANDLER FOR NOT FOUND SET finCurs = 1;
@@ -68,7 +67,7 @@ Begin
         DECLARE curs_dateF date;
         DECLARE finCurs TINYINT DEFAULT 0;
         DECLARE curs_interval CURSOR
-          FOR SELECT dateDebut,dateFin  -- remplacer cette requête par une préparé 
+          FOR SELECT dateDebut,dateFin  
               FROM Reservation
               WHERE (idAnimal=idA) and (valide=1);
         DECLARE CONTINUE HANDLER FOR NOT FOUND SET finCurs = 1;
@@ -122,29 +121,3 @@ end/
 
 
 DELIMITER ;
-
--- à tester mieux que ça
--- promenade sera contrôlé en php(possibilité de coché que si on ajoute un chien)
-
-
-
-
-
-
-  /*
-
-  DATE_ADD(dateDebut,interval duree day)
-
-
-
-P_RESERVATION (type de place, date, durée, animal, promenade, client)
-Cette procédure réserve une place à un animal donné d’un client donné pour une date donnée.
- D’autres paramètres sont à déterminer en option. Cette procédure doit tenir compte des règles métier suivantes :
-
-la réservation ne peut excéder une semaine pour une réservation effectuée par le client lui-même.
-Une réservation n’est possible que jusque 6 mois à l’avance.
-Un client ne peut réserver plus de 2 places pour la même période lorsque la  réservation est effectuée directement par ses soins. 
-P_ANNULE_RESERVATION() 
-
-
-  */
