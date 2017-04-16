@@ -61,11 +61,11 @@
                             <tr>
                                 <td> 
                                     <label for="mdp"> Mot de passe </label></br>
-                                    <input type="password" name="mdp" id="mdp" placeholder="********" size="20"/>
+                                    <input type="password" name="mdp" id="mdp" placeholder="********" size="20" pattern="[A-Z][0-9]" required/>
                                 </td>
                                 <td>
                                     <label for="confmdp"> Confirmez votre mot de passe </label></br>
-                                    <input type="password" name="confmdp" id="confmdp" placeholder="********" size="20"/> 	
+                                    <input type="password" name="confmdp" id="confmdp" placeholder="********" size="20"  /> 	
                                 </td>
                             </tr>
                             <tr>
@@ -78,7 +78,6 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="Script_JS/verifFormInscription.js"></script>    
         <?php include("structure/footer.php") ?>
  </body>
 </html>

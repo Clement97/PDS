@@ -168,7 +168,7 @@ function verifPassword(){
         return true;
     }
   });
-
+// modificer cette merde et faire une bonne expression rég
 }
 
 function verifConfPassword(){

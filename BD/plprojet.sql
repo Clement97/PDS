@@ -32,6 +32,7 @@ CREATE Function F_3Resa_Meme_Periode(idC int,dateDebPotentiel date, dateFinPoten
 begin
   WHILE (dateDebPotentiel!=dateFinPotentiel) DO 
     set dateDebPotentiel=DATE_ADD(dateDebPotentiel,interval 1 day);    
+
       Begin
         DECLARE nbrResaParJour TINYINT DEFAULT 0;
         DECLARE curs_dateD date;
@@ -39,7 +40,7 @@ begin
         DECLARE finCurs TINYINT DEFAULT 0;
         DECLARE curs_interval CURSOR
           FOR SELECT dateDebut,dateFin  
-              FROM Reservation
+              FROM Reservation join Animal using (idAnimal) join Client using (idClient)
               WHERE (idClient=idC) and (valide=1);
         DECLARE CONTINUE HANDLER FOR NOT FOUND SET finCurs = 1;
         OPEN curs_interval;  -- Ouverture du curseur
@@ -68,7 +69,7 @@ Begin
         DECLARE finCurs TINYINT DEFAULT 0;
         DECLARE curs_interval CURSOR
           FOR SELECT dateDebut,dateFin  
-              FROM Reservation
+              FROM Reservation join Animal using (idAnimal) join Client using (idClient)
               WHERE (idAnimal=idA) and (valide=1);
         DECLARE CONTINUE HANDLER FOR NOT FOUND SET finCurs = 1;
         OPEN curs_interval;  -- Ouverture du curseur
@@ -99,10 +100,10 @@ begin
           IF(estClient='1') THEN
             IF(duree>7) THEN select 'impossible de réserver pour une durée supérieur à 7 jours si vous effectuez vous même la réservation' as 'Erreur:'; 
             ELSE  IF(F_3Resa_Meme_Periode(idC,dateDebut,dateFin)='1') then select 'impossible de réserver plus de 2 places dans la même période si vous effectuez vous même la réservation' as 'Erreur:';
-                  ELSE insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,idC,NOW(),dateDebut,dateFin,F_Definir_Montant(DATEDIFF(dateFin,dateDebut),type,estIsole,promenade),1,estIsole);
+                  ELSE insert into Reservation(idAnimal,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,NOW(),dateDebut,dateFin,F_Definir_Montant(DATEDIFF(dateFin,dateDebut),type,estIsole,promenade),1,estIsole);
                   end if;
             END IF;
-          ELSE insert into Reservation(idAnimal,idClient,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,idC,NOW(),dateDebut,dateFin,F_Definir_Montant(DATEDIFF(dateFin,dateDebut),type,estIsole,promenade),1,estIsole);
+          ELSE insert into Reservation(idAnimal,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,NOW(),dateDebut,dateFin,F_Definir_Montant(DATEDIFF(dateFin,dateDebut),type,estIsole,promenade),1,estIsole);
           END IF;
       ELSE select 'impossible de réserver 6 mois à l\'avance' as 'Erreur:' ;
       END IF;
