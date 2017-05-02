@@ -12,6 +12,17 @@ font-family: 'Quicksand-Regular', sans-serif;
 background-position: fixed;
 }
 
+
+/* Clément*/
+input
+{
+    border: none;
+    box-shadow: none;
+}
+
+
+/* Clément*/
+
 /* 	------------------------ ENTETE ------------------------	*/
 	
 header {

@@ -25,7 +25,7 @@ limit 1;
 select count(*) as NbrClient
 from (select idClient,C.nom,C.prenom,sum(datediff(dateFin,dateDebut)) as NbrJourReservésMax
     from Animal join reservation using(idAnimal) join Client as C using(idClient)
-    where YEAR(dateDebut) = '2016' and valide=1
+    where (YEAR(dateDebut)<='2016' and YEAR(dateFin)>='2016') and (valide=1)
     group by idClient) as SubQuery
 where NbrJourReservésMax>8;
 

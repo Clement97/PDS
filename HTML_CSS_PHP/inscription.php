@@ -31,41 +31,41 @@
                             <tr>
                                 <td>
                                     <label for="nom"> Nom </label></br>
-                                    <input type="text" name="nom" id="nom" placeholder="Doe" size="20" /> 
+                                    <input type="text" name="nom" id="nom" placeholder="Doe" size="20" pattern="[a-zA-Z]{3,25}" required/> 
                                 </td>
                                 <td>	
                                     <label for="prenom"> Prénom </label></br>
-                                    <input type="text" name="prenom" id="prenom" alt='test' placeholder="John" size="20" /> 
+                                    <input type="text" name="prenom" id="prenom" alt='test' placeholder="John" size="20" pattern="[a-zA-Z]{3,25}" required /> 
                                 </td>
                             </tr>
                             <tr>
                                 <td> 
                                     <label for="tel"> Téléphone </label></br>
-                                    <input type="text" name="tel" id="tel" placeholder="0607080900" size="20" />
+                                    <input type="text" name="tel" id="tel" placeholder="0607080900" size="20" pattern="0[167][0-9]{8}" required />
                                 </td>
                                 <td>
                                     <label for="adresse"> Adresse </label></br>
-                                    <input type="text" name="adresse" id="adresse" placeholder="12 avenue des Lacs" size="20" /> 
+                                    <input type="text" name="adresse" id="adresse" placeholder="12 avenue des Lacs" size="20" pattern="[0-9]{1,3}[a-zA-Z\ ]{7,}" required/> 
                                 </td>
                             </tr>
                             <tr>
                                 <td> 
                                     <label for="mail"> Adresse email </label></br>
-                                    <input type="text" name="mail" id="mail" placeholder="comchientchat@gmail.com" size="20"   />
+                                    <input type="email" name="mail" id="mail" placeholder="comchientchat@gmail.com" size="20" pattern="[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}" required/>
                                 </td>
                                 <td> 
                                     <label for="confmail"> Confirmez votre adresse email </label></br>
-                                    <input type="text" name="confmail" id="confmail" placeholder="comchientchat@gmail.com" size="20" />
+                                    <input type="email" name="confmail" id="confmail" placeholder="comchientchat@gmail.com" size="20" pattern="[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}" required/>
                                 </td>
                             </tr>
                             <tr>
                                 <td> 
                                     <label for="mdp"> Mot de passe </label></br>
-                                    <input type="password" name="mdp" id="mdp" placeholder="********" size="20" pattern="[A-Z][0-9]" required/>
+                                    <input type="password" name="mdp" id="mdp" placeholder="********" size="20" pattern="(?=^.{8,}$)^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"  required/>
                                 </td>
                                 <td>
                                     <label for="confmdp"> Confirmez votre mot de passe </label></br>
-                                    <input type="password" name="confmdp" id="confmdp" placeholder="********" size="20"  /> 	
+                                    <input type="password" name="confmdp" id="confmdp" placeholder="********" size="20"  pattern="(?=^.{8,}$)^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required /> 	
                                 </td>
                             </tr>
                             <tr>
@@ -73,12 +73,16 @@
                             </tr>
                         </table>
                     </form>
+
                     validation inscription
                 </div>
             </div>
         </div>
-
+        <?php include("Script_PHP/traitementInscription.php") ?>
         <?php include("structure/footer.php") ?>
+        <script type="text/javascript" src="Script_JS/verifFormInscription.js"></script>
+        <script type="text/javascript" src="Script_JS/remplirAuto.js">  </script>
+
  </body>
 </html>
 

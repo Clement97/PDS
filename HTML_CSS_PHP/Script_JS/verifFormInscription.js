@@ -8,13 +8,10 @@ function surligne(event,erreur){
 
 
 
-// // function verifFormInscription(form){
-
-// // }
-
 function verifNom(){
+  var regex = /^[a-zA-Z]{3,25}$/ ;
   champNom.addEventListener("blur", function(event) {
-      if (event.target.value.length<3 || event.target.value.length>25){
+      if (!regex.test(event.target.value)){
         surligne(event,true);
         return false;   
       }
@@ -27,8 +24,9 @@ function verifNom(){
 
 
 function verifPrenom(){
+  var regex = /^[a-zA-Z]{3,25}$/ ;
   champPrenom.addEventListener("blur", function(event) {
-      if (event.target.value.length<3 || event.target.value.length>25){
+      if (!regex.test(event.target.value)){
         surligne(event,true);
         return false;   
       }
@@ -83,7 +81,7 @@ function verifMail(){
 
 function verifConfMail(){
   champConfMail.addEventListener("blur", function(event) {
-    if(event.target.value!=champMail.value){
+    if(event.target.value.length==0||event.target.value!=champMail.value){
         surligne(event, true);
         return false;
     }
@@ -94,72 +92,11 @@ function verifConfMail(){
   });
 }
 
-
-
-function estLettreMinuscule(c){
-  var code =String.charCodeAt(c);
-  if(code>96 && code<123){
-    return true;
-  }
-  return false;
-}
-
-function estLettreMajuscule(c){
-  var code =String.charCodeAt(c);
-  if(code>64 && code<91){
-    return true;
-  }
-  return false;
-}
-
-function estChiffre(c){
-  var code =String.charCodeAt(c);
-  if(code>47 && code<58){
-    return true;
-  }
-  return false;
-}
-
-function estCarSpe(c){
-  return !(estChiffre(c)||estLettreMajuscule(c)||estLettreMinuscule(c));
-}
-
-function contientChiffre(s){
-  for(var i =0; i<s.length;i++){
-    if(estChiffre(s.charAt(i))) return true;
-  }
-  return false;
-}
-
-function contientMin(s){
-    for(var i =0; i<s.length;i++){
-      if(estLettreMinuscule(s.charAt(i))) return true;
-    }
-    return false;
-}
-
-function contientMaj(s){
-  for(var i =0; i<s.length;i++){
-    if(estLettreMajuscule(s.charAt(i))) return true;
-  }
-  return false;
-}
-
-function contientCarSpe(s){
-  for(var i =0; i<s.length;i++){
-    if(estCarSpe(s.charAt(i))) return true;
-  }
-  return false;
-}
-
-function tailleMin(s){
-  return (s.length>7);
-}
 
 function verifPassword(){
+  var regex = /(?=^.{8,}$)^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/
   champPassword.addEventListener("blur", function(event) {
-    var chaine=event.target.value;
-    if(!(contientMaj(chaine)&&contientMin(chaine)&&contientChiffre(chaine)&&contientCarSpe(chaine)&&tailleMin(chaine))){
+    if(!regex.test(event.target.value)){
         surligne(event, true);
         return false;
     }
@@ -168,12 +105,11 @@ function verifPassword(){
         return true;
     }
   });
-// modificer cette merde et faire une bonne expression rég
 }
 
 function verifConfPassword(){
   champConfPassword.addEventListener("blur", function(event) {
-    if(event.target.value!=champPassword.value){
+    if(event.target.value.length==0||event.target.value!=champPassword.value){
         surligne(event,true);
         return false;
     }
