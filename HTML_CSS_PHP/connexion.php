@@ -20,7 +20,7 @@
                 </div>
                 <div class="formulaire">
                     <p class="titre"> DEJA INSCRIT </p>
-                    <form method="post" action="">
+                    <form method="post" action="connexion.php">
                         <label for="id" class="connexion"> Email </label></br>
                         <input type="text" name="id" id="id" placeholder="JohnDoe@comchienchat.com" size="20" required/></br>
                         <label for="mdp" class="connexion"> Mot de passe </label></br>
@@ -43,6 +43,7 @@
                 </p>
             </div>
         </div>
+        <?php include("Script_PHP/traitementConnexion.php") ?>
         <?php include("structure/footer.php") ?>
     </body>
 </html>

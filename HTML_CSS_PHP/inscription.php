@@ -81,8 +81,8 @@
         <?php include("Script_PHP/traitementInscription.php") ?>
         <?php include("structure/footer.php") ?>
         <script type="text/javascript" src="Script_JS/verifFormInscription.js"></script>
-        <script type="text/javascript" src="Script_JS/remplirAuto.js">  </script>
-
+<!--         <script type="text/javascript" src="Script_JS/remplirAuto.js">  </script>
+ -->
  </body>
 </html>
 
