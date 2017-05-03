@@ -23,8 +23,8 @@ session_start();
                 <div class="formulaire">
                     <p class="titre"> DEJA INSCRIT </p>
                     <form method="post" action="connexion.php">
-                        <label for="id" class="connexion"> Email </label></br>
-                        <input type="text" name="id" id="id" placeholder="JohnDoe@comchienchat.com" size="20" required/></br>
+                        <label for="login" class="connexion"> Email </label></br>
+                        <input type="text" name="login" id="login" placeholder="JohnDoe@comchienchat.com" size="20" required/></br>
                         <label for="mdp" class="connexion"> Mot de passe </label></br>
                         <input type="password" name="mdp" id="mdp" placeholder="**************" size="20" required/></br>
                         <input type="checkbox" name="rester"/>
