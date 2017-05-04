@@ -7,7 +7,7 @@ include("Script_PHP/BDDAccess.php");
 		$reponse->execute(array($_POST['mail']));
 
 		if($donnees=$reponse->fetch()){ 
-			echo("<script> alert(' ".$_POST['mail']."'); </script>");
+			echo('<script> alert("Cette adresse email est déjà lié à un compte ")</script>');
 		}
 		else{
 			$reponse=$bdd->prepare('insert into Client(email,password,nom,prenom,tel,adresse) values(:email,:password,:nom,:prenom,:tel,:adresse)');
@@ -17,3 +17,4 @@ include("Script_PHP/BDDAccess.php");
 	}
 
 ?>
+

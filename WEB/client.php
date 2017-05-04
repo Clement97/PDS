@@ -18,7 +18,7 @@
                 <form method="post" action="">
                     <fieldset>
                         <label for="date" class="pt"> Date d'entrée de votre animal:  </label></br>
-                        <input type="date" name="date" id="date" placeholder="jj/mm/aaaa" size="4" maxlength="10" step="10" required/></br></br>
+                        <input type="date" name="date" id="date" placeholder="jj/mm/aaaa" size="4" maxlength="10" step="10" pattern="^(0?\d|[12]\d|3[01])-(0?\d|1[012])-((?:19|20)\d{2})$" required/></br></br>
                         <!--min= date('d/m/Y') et max= date('d/m/Y')+6 mois pour respecter conditions du PDS-->
                         <label for="duree" class="pt"> Durée du séjour </label></br>
                         <input type="number" name="duree" id="duree" max="7" min="1"/></br></br>
