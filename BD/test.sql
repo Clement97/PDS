@@ -1,7 +1,6 @@
 -- CREATE PROCEDURE P_Reservation(idA int,dateDebut date,duree int,estClient tinyint,estIsole tinyint,promenade tinyint)
 
--- CALL P_Reservation(1,'2017-10-16',7,1,1,0);
-
+select F_Resa_Meme_Animal(1,'02-02-2000','03-02-2000');
 /*
 
 42 chats en communauté, 10 chats isolés

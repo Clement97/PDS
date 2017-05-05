@@ -26,7 +26,6 @@ form[action^="client.php"]
 }
 
 table
-
 {
 	margin-left: auto;
 	margin-right: auto;
@@ -34,6 +33,9 @@ table
 	margin-bottom: 20px;
 
 }
+
+
+
 
 td, th /* Mettre une bordure sur les td ET les th */
 

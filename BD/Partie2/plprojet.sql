@@ -52,9 +52,8 @@ begin
           END LOOP valideJour;
         CLOSE curs_interval;     -- Fermeture du curseur
      End;
+     return 0;
   END WHILE;
-  return 0;
-
 end/
 
 
@@ -82,9 +81,8 @@ Begin
           END LOOP valideJour;
         CLOSE curs_interval;     -- Fermeture du curseur
      End;
+     return 0;
   END WHILE;
-  return 0;
-
 end/
 
 

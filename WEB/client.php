@@ -2,6 +2,14 @@
 session_start();
 ?> -->
 <?php
+if(isset($_SESSION['reservationOK'])){
+    if($_SESSION['reservationOK']==1){
+    unset($_SESSION['idAnimal']);
+    unset($_SESSION['action']);
+
+    }
+}
+
 ?>
 
 

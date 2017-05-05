@@ -1,0 +1,236 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww24280\viewh14580\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \ul \ulc0 Introduction aux processus:\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone Def:Un processus est la copie en m\'e9moire d\'92un fichier executable \'85 \'ab\'a0 en train de s\'92\'e9x\'e9cuter\'a0\'bb \
+\
+M\'e9taphore musicale :\
+programme => partition\
+processus => musicien\
+processeur => instrument\
+\
+Un fichier executable comporte de multiples sections :\
+- en t\'eate : d\'e9finit le fichier ( sa nature, pr\'e9ciser ou se trouvent les sections suivantes)\
+-section TEXT : le code en langage machine de l\'92executable.\
+- section DATA : donn\'e9es initialis\'e9es\
+-section BSS: donn\'e9es non allou\'e9es\
+-autres sections : (d\'e9bug, \'85)\
+\
+Pour avoir des informations sur un fichier ex\'e9cutable , on a les commandes:\
+file nomfichier => donner la nature du fichier( lit le magic number qui sont les premiers octets d\'92un fichier)\
+size fichier => retourne la taille des diff\'e9rentes sections.\
+\
+L\'92espace d\'92adressage du processus s\'92organise de la fa\'e7on suivante :\
+\
+\
+OxFFFFFFF\
+	argc,argv,env\
+	____________\
+\
+		TAS\
+\
+		PILE\
+	____________\
+\
+		BSS\
+	____________\
+\
+		DATA\
+	____________\
+0\
+\
+		TEXTE\
+\
+argc: le nbr d\'92arguments(+1) pass\'e9s au processus lors du changement de l\'92executable.\
+argv: le tableau des arguments (en char)\
+env: tableau de l\'92environnement\
+int main(int argc, char ** argv, char **env)\
+Pile : Structure de donn\'e9es ou on stock les adresses de retour d\'92une function (parfois l\'92appel syst\'e8me alloca permet d\'92allouer de la m\'e9moire dans la pile)\
+Tas : zone de m\'e9moire ou est r\'e9alis\'e9 l\'92allocation dynamique malloc, mralloc, calloc\
+\
+Attention: un trop grand nombre d\'92appel r\'e9cursif donnera un stack overflow (qui produira un SIGNAL)\
+=> Plus de place dans le tas : malloc(\'85) => retourne -1 Toujours tester la valeur de retour de malloc().\
+\
+Un processus:\
+	+ copie en m\'e9moire d\'92un programme executable\
+	+un bloc de controle du processus (BCP) qui se d\'e9compose:\
+		-une entr\'e9e dans la table des processus du noyau (cf <sys/proc.h)\
+		-une structure zone U (utilisation) (cf. <sys.user.h>)\
+\
+On est dans le cadre d\'92Unix, un syst\'e8me d\'92exploitation multi-t\'e2che:\
+	-multiplicit\'e9 des executions: plusieurs processus s\'92ex\'e9cutent \'e0 un instant sur un unique CPU.\
+	-on doit s\'92assurer de la protection des ex\'e9cutions cad : un processus ne peut acc\'e9der et n\'92ex\'e9cuter que ses propres instructions, de fa\'e7on s\'e9quentielle. Les processus communiquent entre eux par appels syst\'e8mes.\
+\
+	-partage du temps de calcul : le noyau est (entre autres) ordonnanceur, il s\'92occupe de r\'e9partir le temps entre les processus.\
+\
+Sous Unix (et tout syst\'e8me d\'92exploitation \'85), on dispose de deux modes d\'92ex\'e9cutions:\
+	-le mode utilisateur(user mode) : acc\'e8s aux donn\'e9es priv\'e9es du processus.\
+	-le mode noyau ( ou superuser -kernel mode) : acc\'e8s aux donn\'e9es globales du syst\'e8me.\
+Pour passer du mode utilisateur au mode noyau :\
+	- un appel syst\'e8me explicite demand\'e9 par le processus(trap)\
+	-  par une op\'e9ration d\'92effets de bords (entr\'e9e/sortie)\
+\
+
+\b Le contexte d\'92un processus: l\'92ensemble des donn\'e9es qui permettent de reprendre l\'92ex\'e9cution d\'92un processus qui a \'e9t\'e9 interrompu. Un contexte comporte :\
+	- Son \'e9tat\
+	- Son mot d\'92\'e9tat(les registres, le compteur original)\
+	- Les valeurs des variables globales (statiques ou dynamiques)\
+	- L\'92entr\'e9e (le pointeur) dans la table des processus\
+	- La zone U\
+	- Les piles user et system\
+	- Les zones de codes et de donn\'e9es\
+
+\b0 \
+L\'92ex\'e9cution d\'92un processus se fait dans son contexte. Quand uk y a changement de processus courant.\
+\
+Il y a r\'e9alisation d\'92une commutation du mot d\'92\'e9tat et d\'92un changement de contexte. Le noyau s\'92ex\'e9cute alors dans le nouveau contexte.\
+\
+
+\b Une interruption est une commutation du mot d\'92\'e9tat produit par un signal d\'e9clench\'e9 par le mat\'e9riel (carte r\'e9seau, clavier, souris \'85). L\'92interruption \'e9tant produite par un \'e9v\'e9nement int\'e9rieur ou ext\'e9rieur, il modifie l\'92\'e9tat d\'92un indicateur qui est r\'e9guli\'e8rement test\'e9 par l\'92OS. On distingue trois grands types d\'92interruption:\
+-externe: qlq chose d\'92ind\'e9pendant du processus\
+- erreur interne du processus : division par zero, acc\'e8s interdit \'e0 la m\'e9moire, \'85\
+-appel syst\'e8me : demande d\'92E/S\
+
+\b0 \
+Ordonnancement des processus dans l\'92unit\'e9 centrale :\
+L\'92objectif de la multi prog est de maintenir le taux d\'92utilisation du processeur le plus \'e9lev\'e9 possible et faire en sorte qu\'92ils sont le moins souvent invectif.\
+-90% du temps un CPU ne fait RIEN ! => virtualization\
+\
+Un processus est une succession de \ul phase de calcul\ulnone  (=processus actif )ET \ul d\'92E/S \ulnone (le processus ne fait rien) \
+ id\'e9e de la multiprog est de se faire recouvrir le calcul et les E/S => commutation de contexte du processus d\'e8s qu\'92on a une op\'e9ration d\'92E/S.\
+ON veut utiliser:\
+	- le taux d\'92utilisation de l\'92UC = dur\'e9e ou l\'92UC est active/dur\'e9e tot\
+	En effet, l\'92UC est $$$, un taux d\'92utilisation \'e9lev\'e9 sera un facture de rentabilit\'e9.\
+	peut varier de 0 \'e0 100%. En pratique, 90% du temps => 10% du CPU utilis\'e9\
+	- le d\'e9bit nombre de programmes utilisateurs trait\'e9s+unit\'e9 de temps\
+On peut ajouter :\
+	- le temps de traitement moyen : la moyenne des intervals qui s\'e9pare la fin de t\'e2che de la date de soumission.\
+	- le temps total\
+	- le temps de r\'e9ponse max : le maximum de dur\'e9s qui s\'e9pare la soumission de son traitement.\
+\
+Pour atteindre ces objectifs, il ne suffit pas seulement de commuter de contexte avec  n\'92importe quels processus quand l\'92UC devient disponible(E/S,appel sys), c\'92est le r\'f4le de l\'92ago d\'92ordonnancement (scheduler) qui choisis le procesus qui permettra de minimiser tel ou tel taux.\
+\
+=> on va regarder les principes d\'92aglo d\'92ordonancement \
+\
+Un processus Ti est caract\'e9ris\'e9 par :\
+	-Ti: dur\'e9e d\'92ex\'e9cution de la t\'e2che\
+	-ti : date d\'92arriv\'e9e de la t\'e2che dans la file d\'92attente\
+\
+Un algo d\'92ordonnancement va produire une assignation = description de l\'92execution des t\'e2ches sur le/ les processeur(s) qui respecte les contraintes de pr\'e9cedences des t\'e2ches ( si une t\'e2che doit s\'92executer avant une autre, il faut garantir cet ordre).\
+\
+On repr\'e9sente l\'92assignation par un diagramme de Gantt.\
+\'95temps du prog de la gauche vers la droite \
+\'95on compte le temps en unit\'e9, en notant les t\'e2ches qui ont \'e9t\'e9 affect\'e9es \'e0 un processeur\
+voir feuille sch\'e9ma\
+\
+On va d\'e9crire des algos d\'92ordonnancement avec et sans r\'e9quisition. Sans r\'e9quisition : on n\'92interomps pas une t\'e2che pdt une phase de calcule. Une r\'e9quisition impliquera une commutation de contexte.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul Algo : fifo sans presomption\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone -premier arriv\'e9, premier servi (t\'e2che qui est depuis le plus lgt ds la file)\
+- ordonnancement coop\'e9ratif: les processus rendent la main \'ab\'a0 de leur plein gre\'a0\'bb \
+	-qd ils terminent\
+	-qd ils bloquent\
+	- quand ils font un appel sys sched-yield ()\
+(voir feuille)\
+\
+\
+Sur cet exemple , on remarque que l\'92on ne peut pas entrainer la valeur du temps moyen.\
+\
+Plus g\'e9n\'e9ralement, on peut montrer, si toutes les t\'e2ches sont pr\'e9sentes dans la file d\'92attente de l\'92UC au moment de l\'92assignation, PCTE minimise le temps moyen de traitement pour tous les algos sans r\'e9quisition.\
+Cette propri\'e9t\'e9 n\'92est pas v\'e9rifi\'e9e si les ^taches entrent dans la file d\'92attente de l\'92UC.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul Inconv\'e9nient:\ulnone \
+-In\'e9quitable: famines possibles(si une t\'e2che est longue est dans la file et qu\'92il arrive des successions de ^taches courtes => la t\'e2che longue ne sera jamais trait\'e9e)\
+	famine \'97> l\'92abs d\'92acc\'e8s \'e0 une ressource.\
+-Irr\'e9alisable:(dans un OS) car on ne connait pas toutes les t\'e2ches \'e0 priori.\
+\
+\ul Avantages:\ulnone \
+-minimise le tps de r\'e9ponse\
+-maximise le d\'e9bit (le nbr de processus trait\'e9s par unit\'e9 de tps)\
+\
+\ul Inter\'eat ?:\ulnone \
+=> comme cela donne un optimum, cela permet de comparer post-mortem (\'e0 la fin de l\'92execution) la strat\'e9gie implanter dans un OS vis \'e0 vis de cet optimum.\ul \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone => si on dispose d\'92une estimation de la dur\'e9e des ^taches, cet algo donne de bons r\'e9sultats.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul Le point sur les algos d\'92ordonnancement sans r\'e9quisition\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone sans requisition: quand un processus effectue des op\'e9rations sur l\'92ordi, on ne peut rien faire\
+-Le temps de r\'e9ponse d\'e9pend du processus qui a la main \
+	=> tant que la t\'e2che courante s\'a0\'91execute, on ne peut rien faire d\'92autre.\
+-C\'92est difficile \'e0 mettre en place dans un temps partag\'e9/temps seul.\
+- P\'e9nalise les processus courts\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul Quelle utilisation ?\ulnone \
+overhead: temps pris par l\'92algorithme d\'92ordonnancement.\
+-Mac OS < \'e0 la version MacOsX (multy-tache comparatif)\
+	=> sur une machine avec peu de ressource, l\'92overhead (le surcout li\'e9 au calcul de l\'92ordonnancement) de cette politique d\'92assignation des ressources est tr\'e8s faible.\
+\ul \
+Algorithme d\'92ordonnancement avec r\'e9quisition : Round Robin (tourniquet):\ulnone \
+Round Robin correspond = FIFO avec pr\'e9emption. Pour permettre sa mise en place dans un OS, on doit disposer d\'92\'e9l\'e9ment suppl\'e9mentaire :\
+- interruption (IRQ) [\'e9v\'e9nement p\'e9riodique qui est produit \'97> logiciel ou mat\'e9riel et qui doit \'eatre pris en compte ]\ul \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone - horloge( signal p\'e9riodique avec une fr\'e9quence fixe- donn\'e9e par le CPU CORE I7 3GHz \'97> horloge)\
+- commutation de contexte (cf contexte d\'92un processeur)\
+\
+Chaque processus va disposer d\'92un quantum de temps pour s\'92executer sur l\'92UC. Une fois que le quantum de temps est \'e9puis\'e9, une interruption est produite, l\'92ordonnanceur reprend la main, processus en cours est sauvegard\'e9 (commutation de contexte) est replac\'e9 dans la file d\'92attente.\
+On remarque qu\'92en diminuant le quantum de temps:\
+	- le temps de r\'e9ponse diminue, mais ..\
+	- l\'92overhead augmente (temps associ\'e9 \'e0 la commutation de contexte (au sens large) )\
+Le Quantum id\'e9al est un \ul compromis \ulnone entre la dur\'e9e moyenne d\'92interaction et le nombre de processus.\
+Notez que :\
+-quand le quantum de temps augmente => le temps de r\'e9ponse augmente\
+-quand le quantum de temps diminue => le temps de r\'e9ponse diminue mais l\'92overhead augmente\
+\
+Si on a un overhead de 3ms et un quantum de 7ms : on passe 33% du temps \'e0 r\'e9aliser les commutations de contexte\
+10 t\'e2ches avec un quantum de 350ms => chaque t\'e2che en l\'92UC toutes les 3,5secondes\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul Avantages:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone -temps de r\'e9ponse est born\'e9 ind\'e9pendamment du processus\
+-\'e9quitable\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul Inconv\'e9nients:\ulnone \
+-tr\'e8s sensible au choix du quantum\
+-d\'e9favorise les t\'e2ches orient\'e9es entr\'e9/sortie => lors d\'92une ES, l\'92ordonanceur reprend la main, et la t\'e2che retourne dans la file et n\'92en sortira qu\'92une fois l\'92E/S termin\'e9e (la fin d\'92une E/S provoque une interruption).\
+\
+En effet : dans un OS qui utilise un Round Robin simple, \'e0 chaque E/S on effectue un changement de contexte car les op\'e9rations sont g\'e9n\'e9ralement trait\'e9s par des organes d\'e9di\'e9s de l\'92ordinateur => le CPU est inutile pour faire une E/S.\
+=> une t\'e2che qui fait un E/S est sch\'e9dul\'e9e imm\'e9diatement et donc n\'92\'e9puise pas son quantum de temps.\
+\'c0 l\'92inverse, les seules t\'e2ches qui \'e9puisent leurs quantum de temps sont celles qui font des calcules.\
+\
+\
+\ul Sous Linux:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone Round robin \'ab\'a0\'e9volu\'e9\'a0\'bb: round robin+ un syst\'e8me de priorit\'e9 dynamique.\
+	-mat\'e9riel : on a jusqu\'92\'e0 3 horloges diff\'e9rentes\
+	-linux utilise le PIT (Programmable Interval Timer) dans lequel une interruption du PIT provoque un changement de contexte.\
+		\'97> par d\'e9faut, sous linux c\'92est un \'e9v\'e9nement 100 fois par seconde (environ 10ms = 1 tick)\
+		\'97> le quantum est fix\'e9 \'e0 20ticks (environ 200 ms)\
+Sous unix $nice => permet de changer la priorit\'e9 d\'92un processus\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ul PCTER:\ulnone  (plus courts temps d\'92ex\'e9 restant)\
+Dans cette politique, on dispose pour chaque t\'e2che du temps d\'92ex\'e9cution restant T\'92i, au d\'e9but, TO\'92i=Ti.\
+L\'92algorithme choisit la t\'e2che dont le TO\'92i est minimal, \'e0 la fin du quantum, on effectue une commutation de contexte, la t\'e2che est remise dans la file, TO\'92i est mis \'e0 jour et l\'92algorithme choisit la t\'e2che j tel que T\'92j soit minimal.\
+\
+\ul Ordonnancement et priorit\'e9:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \ulnone A priori, dans un syst\'e8me temps partag\'e9, tous les utilisateurs sont consid\'e9r\'e9s comme \'e9gaux et l\'92UC est r\'e9partie entre les t\'e2ches. Cependant certaines contraintes d\'92efficacit\'e9 peuvent remettre en cause cette conception \'e9galitaire: certaines t\'e2ches doivent \'eatre trait\'e9es en priorit\'e9s( des t\'e2ches syst\'e8mes ne doivent pas \'eatre devanc\'e9es par des t\'e2ches utilisateurs; certaines t\'e2ches doivent fournir leurs r\'e9sultats avant une limite temporelle \'85)\
+Une solution serait d\'92affecter \'e0 chaque t\'e2che une priorit\'e9 (de fa\'e7on sttique ou dynamiquement) et d\'92utiliser cette information de priorit\'e9 pour s\'e9lectionner la t\'e2che courante.\
+32 niveau de priorit\'e9 : de 16 \'e0 31 => temps r\'e9el , en dessous normaux\
+il faut \'e9viter les famines et donc s\'92assurer que, malgr\'e9 les priorit\'e9s, chaque t\'e2che ait acc\'e8s \'e0 l\'92UC.\
+\
+De nombreuses solutions ont \'e9t\'e9 propos\'e9es, dont celle d\'92utiliser la valeur du d\'e9lai depuis le dernier acc\'e8s \'e0 l\'92UC. \
+Sous VAX/VMS, on distingue les processus normaux des processus temps r\'e9el. on est dans un syst\'e8me temps r\'e9el qd le temps de r\'e9ponse est born\'e9 (fondamental => ex: m\'e9tro 14, arr\'eat au bout du quai). cad que l\'92on garantit que le syst\'e8me donnera la main \'e0 un processus au plus tard \'e0 l\'92instant T.}
