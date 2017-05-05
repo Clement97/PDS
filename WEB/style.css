@@ -20,12 +20,17 @@ input
     box-shadow: none;
 }
 
+ fieldset /* réduire la porté de ce selecteur si y'a des pb sur d'autre form*/
+{
+	margin: 30px;
+}
 table
 
 {
 	margin-left: auto;
 	margin-right: auto;
     border-collapse: collapse;
+	margin-bottom: 20px;
 
 }
 
@@ -37,6 +42,8 @@ td, th /* Mettre une bordure sur les td ET les th */
     border: 1px solid black;
 
 }
+
+
 
 
 /* Clément*/
@@ -658,13 +665,13 @@ color: #258A0F;
 
 #client {
 display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
+flex-direction: column;
 }
 
 #client #modifclient {
 width: 100%;
 text-align: center;
+margin: auto;
 }
 
 #client #modifclient a {
@@ -673,20 +680,20 @@ text-decoration: none;
 }
 
 #client .ptclt {
-width: 49%;
-overflow: auto;
+margin: auto;
+width: 75%;
 border: 1px solid black;
 background-color: rgba(230,230,230,0.4);
 }
 
 #client .ptclt:nth-child(2), #client .ptclt:nth-child(3) {
-height: 275px;
-margin-bottom: 10px;
+margin-bottom: 50px;
 font-size: 13px;
 }
 
 #client .ptclt:nth-child(4), #client .ptclt:nth-child(5) {
 height: 130px;
+margin-bottom: 50px;
 }
 
 #client .ptclt:nth-child(4) {
@@ -696,11 +703,12 @@ font-size: 15px;
 #client .ptclt:nth-child(5) textarea {
 margin: 1%;
 width: 95%;
-height: 25px;
+height: 100px;
 }
 
 #client .ptclt:nth-child(5) {
 text-align: center;
+height: 225px;
 }
 
 #client h2 {
@@ -761,19 +769,23 @@ color: #258A0F;
 
 #operateur {
 display: flex;
+flex-direction: column;
 margin-top: 1%;
+width: 99%;
+margin-bottom:3%;
 }
 
 #operateur .ptope:nth-child(1) {
-margin-top: 40px;
-margin-right: 1%;
+margin-left: auto;
+margin-right: auto;
+margin-bottom: 50px;
 width: 29%;
-height: 400px;
-overflow: auto;
+border: 1px solid black;
 }
 
 #operateur .ptope:nth-child(1) form {
 background-color: rgba(230,230,230,0.4);
+text-align: center;
 }
 
 #operateur .ptope:nth-child(2) {
@@ -783,7 +795,6 @@ margin: auto;
 border: 1px solid black;
 width: 70%;
 height: 400px;
-overflow: auto;
 background-color: rgba(230,230,230,0.4);
 }
 
@@ -821,6 +832,9 @@ color: orange;
 
 #admin {
 display: flex;
+flex-direction: column;
+margin-top: 1%;
+margin-bottom: 3%;
 }
 
 #admin h2 {
@@ -835,8 +849,9 @@ display: flex;
 flex-wrap: wrap;
 border: 1px solid black;
 overflow: auto;
-width: 45%;
+width: 75%;
 margin: auto;
+margin-bottom: 50px;
 height: 425px;
 background-color: rgba(230,230,230,0.4);
 align-items: center;
@@ -864,7 +879,7 @@ display: flex;
 flex-wrap: wrap;
 border: 1px solid black;
 overflow: auto;
-width: 45%;
+width: 75%;
 margin: auto;
 height: 425px;
 background-color: rgba(230,230,230,0.4);

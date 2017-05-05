@@ -1,14 +1,16 @@
-
-
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="UTF-8"/>
         <link rel="stylesheet" href="style.css"/>
         <title> comChien&Chat </title>
     </head>
+    
     <body>
+    
         <?php include("structure/header.php") ?>
+        
         <div id="admin">
             <div id="resadm">
                 <div class="res">
