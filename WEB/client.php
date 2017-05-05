@@ -1,4 +1,8 @@
-
+<!-- <?php
+session_start();
+?> -->
+<?php
+?>
 
 <!DOCTYPE html>
 <html>
@@ -14,54 +18,42 @@
                 <a href="modification.php"> Modification des informations de votre profil </a>
             </div>
             <div class="ptclt">
-                <h2> Consultation et réservation </h2>
-                <form method="post" action="">
-                    <fieldset>
-                        <label for="date" class="pt"> Date d'entrée de votre animal:  </label></br>
-                        <input type="date" name="date" id="date" placeholder="jj/mm/aaaa" size="4" maxlength="10" step="10" pattern="^(0?\d|[12]\d|3[01])-(0?\d|1[012])-((?:19|20)\d{2})$" required/></br></br>
-                        <!--min= date('d/m/Y') et max= date('d/m/Y')+6 mois pour respecter conditions du PDS-->
-                        <label for="duree" class="pt"> Durée du séjour </label></br>
-                        <input type="number" name="duree" id="duree" max="7" min="1"/></br></br>
-                        <label for="ani" class="pt"> Type d'animal </label></br>
-                        <input type="radio" name="ani" value="Chat" id="Chat"/> <label for="Chat">Chat</label></br>
-                        <input type="radio" name="ani" value="Rongeur" id="Rongeur"/> <label for="Rongeur">Rongeur</label></br>
-                        <input type="radio" name="ani" value="Chien" id="Chien"/> <label for="Chien">Chien</label></br>
-                        <input type="radio" name="ani" value="ChienExtra" id="ChienExtra"/> <label for="ChienExtra">Chien avec promenade journalière</label></br></br>
-                        <label for="box" class="pt"> La condition de traitement de votre animal: </label> <br>
-                        <input type="radio" name="box" value="Groupe" id="Groupe"/> <label for="Groupe" class="choixlabel">En groupe</label></br>
-                        <input type="radio" name="box" value="Seul" id="Seul"/> <label for="Seul" class="choixlabel">Seul</label></br></br>
-                        <input type="submit" value="Rechercher"/>
-                        <!-- Ce menu s'affiche une fois la recherche effectuée donc il y a un deuxième formulaire -->
-                        <p> Pour cette date et durée, <strong> 18 </strong> place(s) sont disponible(s). </br>
-                            Souhaitez vous reserver? 
-                        </p>
-                <form method="post" action="">
-                <label for="votreanimal"> Quel animal souhaitez vous faire garder? </label></br>
-                <select name="votreanimal" id="votreanimal" size="1">
-                <option> Pupuce </option>
-                <option> Baxter </option>
-                <option> Tetine </option>
-                </select></br></br>
-                <input type="submit" value="Réserver"/>
-                </form>
-                </fieldset>
-                </form>
+                <h2> mes animaux</h2>
+                <?php 
+                    if(!isset($_GET['action'])or$_GET['action']=='effacer'){
+                        if($_GET['action']=='effacer'){
+                            $idAnimal=$_GET['idAnimal'];
+                            include("Script_PHP/BDDAccess.php");
+                            $requete=$bdd->prepare('delete from Animal where idAnimal=?');
+                            $requete->execute(array($idAnimal));
+                        }
+                        include("Script_PHP/GestionAnimaux.php");
+                    }
+                    else{
+                        if($_GET['action']=='reserver')
+                            include("Script_PHP/ReservationAnimal.php");
+                        if($_GET['action']=='modifier')
+                            include("Script_PHP/ModifReservationAnimal.php");
+                    }
+                ?>
             </div>
+            
             <div class="ptclt">
                 <h2> Ajouter un animal à mon compte </h2>
-                <form method="post" action="">
+                <form method="post" action="client.php" enctype="multipart/form-data">
                     <fieldset>
                         <label for="ani" class="pt"> Type d'animal </label></br>
-                        <input type="radio" name="ani" value="Chat" id="Chat"/> <label for="Chat">Chat</label></br>
-                        <input type="radio" name="ani" value="Rongeur" id="Rongeur"/> <label for="Rongeur">Rongeur</label></br>
-                        <input type="radio" name="ani" value="Chien" id="Chien"/> <label for="Chien">Chien</label></br></br>
-                        <label for="nom" class="pt"> Le nom de votre animal  </label></br>
-                        <input type="text" name="nom" id="nom" placeholder="Nom" size="10" required/></br></br>	
-                        <label for="identification" class="pt"> L'identification de votre animal (tatouage/puce) </label></br>
-                        <input type="text" name="identification" id="identification" placeholder="012345" size="10" required/></br></br>
-                        <label for="certificat" class="pt"> Envoyez-nous le carnet de vaccin de votre animal </label></br>
-                        <input type="file" name="certificat" id="certificat"/></br></br>
+                        <input type="radio" name="ani" value="chat" id="chat" checked/> <label for="Chat">Chat</label></br>
+                        <input type="radio" name="ani" value="rongeur" id="rongeur"/> <label for="Rongeur">Rongeur</label></br>
+                        <input type="radio" name="ani" value="chien" id="chien"/> <label for="Chien">Chien</label></br></br>
+                        <label for="nom" class="pt" > Le nom de votre animal  </label></br>
+                        <input type="text" name="nom" id="nom" placeholder="Nom" size="10" pattern="[a-zA-Z]{3,25}" required/></br></br>	
+                        <label for="identification" class="pt" pattern="[a-zA-Z0-9]{3,25}" > L'identification de votre animal (tatouage/puce) </label></br>
+                        <input type="text" name="identification" id="identification" placeholder="012345" size="10" /></br></br>
+                        <label for="certificat" class="pt" > Envoyez-nous le carnet de vaccin de votre animal </label></br>
+                        <input type="file" name="certificat" id="certificat" required /></br></br>
                         <input type="submit" value="Enregistrer"/>
+                        <?php include("Script_PHP/traitementAddAnimal.php") ?>
                     </fieldset>
                 </form>
             </div>
@@ -84,5 +76,6 @@
         <?php include("structure/footer.php") ?>
     </body>
 </html>
+
 
 

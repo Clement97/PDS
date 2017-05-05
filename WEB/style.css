@@ -20,6 +20,24 @@ input
     box-shadow: none;
 }
 
+table
+
+{
+	margin-left: auto;
+	margin-right: auto;
+    border-collapse: collapse;
+
+}
+
+td, th /* Mettre une bordure sur les td ET les th */
+
+{
+	padding:2px;
+	text-align: center;
+    border: 1px solid black;
+
+}
+
 
 /* Clément*/
 
