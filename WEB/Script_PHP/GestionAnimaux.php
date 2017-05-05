@@ -18,7 +18,7 @@
 	$requete->execute(array($_SESSION['id']));
 
 	// mettre à jour avant affichage si le carnet de vaccination est toujours valide
-
+	if($donnees=$requete -> fetch()){
 	echo("	<table>
 				<tr>
 					<th>nom</th>
@@ -30,7 +30,21 @@
 					<th>Modifier</th>
 					<th>Effacer</th>
 				</tr>
+				<tr>	
+					<td>".$donnees['nom']."</td>
+					<td>".$donnees['type']."</td>
+					<td>".estVide($donnees['identification'])."</td>
+					<td>".est1($donnees['carnetVaccinationValide'])."</td>
+					<td>".$donnees['dateUpload']."</td>
+					<td><a href=\"client.php?action=reserver&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td></td>
+					<td><a href=\"client.php?action=modifier&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >M</button> </td></td>
+					<td><button type=\"button\" name=".$donnees['idAnimal'].">X</button> </td>
+				</tr>
 			");
+	}
+	else{
+		echo("<h3 style='text-align:center'>Vous n'avez pas encore ajouté d'animal</h3>");
+	}
 	while($donnees=$requete -> fetch()){
 	echo("
 				<tr>	
@@ -41,7 +55,7 @@
 					<td>".$donnees['dateUpload']."</td>
 					<td><a href=\"client.php?action=reserver&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td></td>
 					<td><a href=\"client.php?action=modifier&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >M</button> </td></td>
-					<td><a href=\"client.php?action=effacer&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >X</button> </td></td>
+					<td><button type=\"button\" name=".$donnees['idAnimal'].">X</button> </td>
 
 
 

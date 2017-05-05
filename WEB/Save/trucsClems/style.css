@@ -1,0 +1,888 @@
+/* 	------------------------ PARAMETRES GENERAUX ------------------------	*/
+
+@font-face {
+font-family: 'Quicksand-Regular';
+src: url(Quicksand-Regular.otf) format('OpenType');
+}
+
+body {
+background: url("images/fond.jpg");
+background-size: cover;
+font-family: 'Quicksand-Regular', sans-serif;
+background-position: fixed;
+}
+
+
+/* Clément*/
+input
+{
+    border: none;
+    box-shadow: none;
+}
+
+table
+
+{
+	margin-left: auto;
+	margin-right: auto;
+    border-collapse: collapse;
+
+}
+
+td, th /* Mettre une bordure sur les td ET les th */
+
+{
+	padding:2px;
+	text-align: center;
+    border: 1px solid black;
+
+}
+
+
+/* Clément*/
+
+/* 	------------------------ ENTETE ------------------------	*/
+	
+header {
+display: flex;
+justify-content: space-between;
+}
+
+nav {			/* menu principale permettant de choisir différents onglets */
+display: flex;		/* Flexbox pour gérer l'affichage des div */
+flex: 1;		/* menu = boite principale */
+}
+
+nav a {
+text-decoration: none;
+color: black;
+}
+
+nav ul {
+list-style-type: none;
+margin: 0;		/* alligner les grands parties */
+padding: 0;
+}
+
+nav li {
+float: left;		/* on crée un menu horizontal */
+margin:auto;
+padding:0;
+}
+
+nav a:hover {	
+color: #FFD700;
+}
+
+nav ul li:hover ul {	
+display:block;
+}
+
+nav li:hover ul li { 
+float: none;
+}
+
+nav ul li ul {	/* les sous-parties sont cachées - apparaissent au survol de la souris */
+display: none;
+font-size: 20px;
+}
+
+nav li ul {
+position: absolute;
+}
+
+.entete{		/* chaque grande partie est contenue dans un div */
+margin: auto;
+font-size: 30px;
+}
+
+#social {	
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+}
+
+/* 	------------------------ PIED DE PAGE ------------------------	*/
+
+footer {
+background-color: rgba(200,200,200,0.6);   /* comme nous n'avons pas de lien "nous contacter", le footer avec les infos est tout le temps visible*/
+position: fixed;
+left: 0;
+right: 0;
+bottom: 0;
+height: 4%;
+font-size: 10px;
+display: flex;
+justify-content: space-between;
+}
+
+.coordonnees:nth-child(1) {
+margin-left: 25px;
+}
+
+.coordonnees:nth-child(2) {
+margin-right: 25px;
+}
+
+/* 	------------------------ PAGE DE L'INDEX ------------------------	*/
+
+section {
+display: flex;
+justify-content: space-between;
+}
+
+article {
+margin-left: 3%;
+margin-right: 3%;
+flex: 1;
+font-size: 17px;
+text-align: justify;
+}
+
+article h1 {
+margin: 0;
+text-align: center;
+color: orange;
+font-size: 22px;
+}
+
+article h4 {
+text-align: center;
+color: orange;	
+font-size: 17px;
+}
+
+article a {
+font-size: 23px;
+color: black;
+text-decoration: underline;
+font-weight: bold;
+font-variant: small-caps;
+}
+
+article a:hover {
+color: #258A0F;
+}
+
+.center {
+text-align: center;
+}
+
+#slideshow, aside iframe {
+padding-top: 3%;
+}
+
+/* ----- DEFILEMENT DE PHOTO DE L'INDEX ----- */
+
+#slideshow
+{
+width:350px;
+height:200px;
+overflow: hidden;
+position: relative;
+}
+.slid_1, .slid_2, .slid_3, .slid_4, .slid_5, .slid_6, .slid_7, .slid_8
+{
+  position: absolute;
+}
+
+.slid_1{left: 0;}
+.slid_2{left: 350px;}
+.slid_3{left: 700px;}
+.slid_4{left: 1050px;}
+.slid_5{left: 1400px;}
+.slid_6{left: 1750px;}
+.slid_7{left: 2100px;}
+.slid_8{left: 2450px;}
+
+.slide
+{
+width: 350px;
+height: 200px;
+left:0px;
+position: absolute;
+-webkit-animation-duration: 30s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-name: index_slide;
+-moz-animation-duration: 30s;
+-moz-animation-iteration-count:infinite;
+-moz-animation-name: index_slide;
+-ms-animation-duration: 30s;
+-ms-animation-iteration-count:infinite;
+-ms-animation-name: index_slide;
+animation-duration: 30s;
+animation-iteration-count:infinite;
+animation-name: index_slide;
+}
+
+
+@-webkit-keyframes index_slide; @-moz-keyframes index_slide; @-ms-keyframes index_slide; @keyframes index_slide 
+{
+0% {left:0px;}
+6,25% {left:0px;}
+12,5% {left:-350px;}
+19% {left:-350px;}
+25,5% {left:-700px;}
+32% {left:-700px;}
+38,5% {left:-1050px;}
+45% {left:-1050px;}
+51,5% {left:-1400px;}
+58% {left:-1400px;}
+64,5% {left:-1750px;}
+71% {left:-1750px;}
+77,5% {left:-2100px;}
+84% {left:-2100px;}
+}
+
+/* 	------------------------ PAGE DES TARIFS ------------------------	*/
+
+#tarif {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+margin-top: 1%;
+margin-left: 5%;
+margin-right: 5%;
+}
+
+.description {
+width: 45%;
+height: 175px;
+text-align: justify;
+padding: 10px;
+overflow: auto;
+word-wrap: break-word;
+margin-bottom: 20px;
+}	
+
+.description:nth-child(1) table, .description:nth-child(1) td, .description:nth-child(1) th {
+border-collapse: collapse;
+margin-top: 2%;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+border: 1px solid black;
+font-size: 16px;
+}
+
+.description:nth-child(1) table thead {
+color: orange;
+font-size: 16px;
+}
+
+.description:nth-child(1) table em {
+font-size: 13px;
+}
+
+.description:nth-child(1) table caption {
+font-size: 23px;
+font-weight: bold;
+color: #258A0F;
+margin-bottom: 2%;
+}
+
+.description:nth-child(2), .description:nth-child(3), .description:nth-child(4) {
+border: 2px solid #258A0F;
+border-radius: 25px;
+}
+
+.description h1 {
+text-align: center;
+font-size: 23px;
+font-weight: bold;
+color: #258A0F;
+margin-bottom: 2%;
+}
+
+.description p {
+font-size: 17px;
+}
+
+/* ----- DEFILEMENT DE PHOTO DES TARIFS / CHIEN ----- */
+
+#slidechien {
+float: right;
+margin: 10px;
+width:150px;
+height:150px;
+overflow: hidden;
+position: relative;
+}
+
+#chi1, #chi2, #chi3 {
+position: absolute;
+}
+
+#chi1{left: 0;}
+#chi2{left: 150px;}
+#chi3{left: 300px;}
+
+#slidien {
+width: 150px;
+height: 150px;
+left:0px;
+position: absolute;
+-webkit-animation-duration: 20s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-name: anim_slide;
+-moz-animation-duration: 20s;
+-moz-animation-iteration-count:infinite;
+-moz-animation-name: anim_slide;
+-ms-animation-duration: 20s;
+-ms-animation-iteration-count:infinite;
+-ms-animation-name: anim_slide;
+animation-duration: 20s;
+animation-iteration-count:infinite;
+animation-name: anim_slide;
+}
+
+@-webkit-keyframes anim_slide; @-moz-keyframes anim_slide; @-ms-keyframes anim_slide; @keyframes anim_slide 
+{
+0% {left:0px;}
+16.65% {left:0px;}
+33.3% {left:-150px;}
+49.95% {left:-150px;}
+66.6% {left:-300px;}
+83.25% {left:-300px;}
+}
+
+/* ----- DEFILEMENT DE PHOTO DES TARIFS / CHAT ----- */
+
+#slidechat {
+float: right;
+margin: 10px;
+width:150px;
+height:150px;
+overflow: hidden;
+position: relative;
+}
+
+#cha1, #cha2, #cha3 {
+position: absolute;
+}
+
+#cha1{left: 0;}
+#cha2{left: 150px;}
+#cha3{left: 300px;}
+
+#slidat {
+width: 150px;
+height: 150px;
+left:0px;
+position: absolute;
+-webkit-animation-duration: 20s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-name: anim_slide;
+-moz-animation-duration: 20s;
+-moz-animation-iteration-count:infinite;
+-moz-animation-name: anim_slide;
+-ms-animation-duration: 20s;
+-ms-animation-iteration-count:infinite;
+-ms-animation-name: anim_slide;
+animation-duration: 20s;
+animation-iteration-count:infinite;
+animation-name: anim_slide;
+}
+
+@-webkit-keyframes anim_slide; @-moz-keyframes anim_slide; @-ms-keyframes anim_slide; @keyframes anim_slide 
+{
+0% {left:0px;}
+16.65% {left:0px;}
+33.3% {left:-150px;}
+49.95% {left:-150px;}
+66.6% {left:-300px;}
+83.25% {left:-300px;}
+}
+
+/* ----- DEFILEMENT DE PHOTO DES TARIFS / RONGEUR ----- */
+
+#slidegeur {
+float: right;
+margin: 10px;
+width:150px;
+height:150px;
+overflow: hidden;
+position: relative;
+}
+
+#lap1, #lap2, #lap3 {
+position: absolute;
+}
+
+#lap1{left: 0;}
+#lap2{left: 150px;}
+#lap3{left: 300px;}
+
+#slideur {
+width: 150px;
+height: 150px;
+left:0px;
+position: absolute;
+-webkit-animation-duration: 20s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-name: anim_slide;
+-moz-animation-duration: 20s;
+-moz-animation-iteration-count:infinite;
+-moz-animation-name: anim_slide;
+-ms-animation-duration: 20s;
+-ms-animation-iteration-count:infinite;
+-ms-animation-name: anim_slide;
+animation-duration: 20s;
+animation-iteration-count:infinite;
+animation-name: anim_slide;
+}
+
+@-webkit-keyframes anim_slide; @-moz-keyframes anim_slide; @-ms-keyframes anim_slide; @keyframes anim_slide 
+{
+0% {left:0px;}
+16.65% {left:0px;}
+33.3% {left:-150px;}
+49.95% {left:-150px;}
+66.6% {left:-300px;}
+83.25% {left:-300px;}
+}
+
+/* 	------------------------ PAGE DU CALENDRIER ------------------------	*/
+
+#calendrier {
+display: flex;
+justify-content: space-between;
+margin-top: 1%;
+}
+
+#simulation {
+width: 29%;
+margin-right: 1%;
+height: 350px;
+}
+
+#simulation form {
+background-color: rgba(230,230,230,0.4);
+margin-top: 1%;
+}
+
+#simulation p {
+margin: 0;
+font-size: 17px;
+text-align: justify;
+}
+
+#simulation .titrelabel, #simulation .choixlabel {
+font-size: 15px;
+}
+
+#simulation legend {
+font-size: 15px;
+color: orange;
+}
+
+#simulation em {
+font-style: normal;
+text-decoration: underline;
+color: orange;
+}
+
+#tabcalendrier {
+width: 70%;
+border-collapse: collapse;
+text-align: center;
+}
+
+#tabcalendrier td, #tabcalendrier th {
+border-collapse: collapse;
+border: 1px solid black;
+background-color: rgba(230,230,230,0.4);
+}
+
+#tabcalendrier td {
+font-size: 25px;
+}
+
+#tabcalendrier .enthaut {
+width: 12%;
+color: #258A0F;
+height: 60px;
+}
+
+#tabcalendrier .entcote {
+color: orange;
+height: 55px;
+}
+
+#calendrier #simulation form p {
+font-size: 15px;
+text-align: center;
+}
+
+/* 	------------------------ PAGE DE L'ADMISSION ------------------------	*/
+
+#admission {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+}
+
+#admission h2 {
+color: #258A0F;
+text-align: center;
+text-decoration: underline;
+}
+
+#admission #titre {
+color: orange;
+font-variant: small-caps;
+width: 70%;
+text-align: center;
+margin: auto;
+text-decoration: underline;
+} 
+
+#admission #colmep {
+display: flex;
+flex-direction: column;
+width: 45%;	
+margin: auto;
+}
+
+#admission #general {
+width: 45%;
+margin: auto;
+list-style-type: square;
+}
+
+#admission #general, #admission .mep {
+background-color: rgba(230,230,230,0.4);
+}
+
+/* 	------------------------ PAGE DE LA CONNEXION ------------------------	*/
+
+#connexion {
+display: flex;
+}
+
+#connexion #pre-cadre {
+width: 70%;
+text-align: center;
+margin: auto;
+}
+
+#connexion #pre-cadre strong {
+color: orange;
+}
+
+#connexion #cadre {
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+#connexion .titre {
+font-variant: small-caps;
+font-size: 30px;
+margin-top: 20px;
+margin-bottom: 0;
+text-align: center;
+}
+
+#connexion .formulaire:nth-child(1) p a{
+text-decoration: none;
+color: #258A0F;
+text-decoration: underline;
+}
+
+#connexion .titre:nth-child(2) {
+background-color: black;
+}
+
+#connexion #centrer {
+text-align: center;
+}
+
+/* 	------------------------ PAGE DE L'INSCIPRITION ------------------------	*/
+
+#inscription {
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+margin-left: 2%;
+margin-right: 2%;
+flex-wrap: wrap;
+}
+
+#inscription #titre h1 {
+text-align: center;
+color: orange;
+font-variant: small-caps;
+margin-bottom: 10%;
+}
+
+#inscription #contenu {
+display: flex;
+}
+
+#inscription .insbloc:nth-child(1) {
+width: 29%;
+margin-right: 1%;
+margin-top: auto;
+margin-bottom: auto;
+text-align: justify;
+}
+
+#inscription .insbloc:nth-child(1) strong {
+color: orange;
+}
+
+#inscription .insbloc:nth-child(1) em {
+color: #258A0F;
+}
+
+#inscription form {
+width: 900px;
+}
+
+#inscription table td {
+width: 400px;
+text-align: center;
+}
+
+#inscription input  {
+text-align: center;
+}
+
+#inscription label  {
+color: #258A0F;
+}
+
+
+/* 	------------------------ PAGE CLIENT ------------------------	*/
+
+#client {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+}
+
+#client #modifclient {
+width: 100%;
+text-align: center;
+}
+
+#client #modifclient a {
+color: #258A0F;
+text-decoration: none;
+}
+
+#client .ptclt {
+width: 49%;
+overflow: auto;
+border: 1px solid black;
+background-color: rgba(230,230,230,0.4);
+}
+
+#client .ptclt:nth-child(2), #client .ptclt:nth-child(3) {
+height: 275px;
+margin-bottom: 10px;
+font-size: 13px;
+}
+
+#client .ptclt:nth-child(4), #client .ptclt:nth-child(5) {
+height: 130px;
+}
+
+#client .ptclt:nth-child(4) {
+font-size: 15px;
+}
+
+#client .ptclt:nth-child(5) textarea {
+margin: 1%;
+width: 95%;
+height: 25px;
+}
+
+#client .ptclt:nth-child(5) {
+text-align: center;
+}
+
+#client h2 {
+text-align: center;
+color: #258A0F;
+font-variant: small-caps;
+font-size: 20px;
+}
+
+#client .pt, #client strong {
+color: orange;
+font-size: 14px;
+font-weight: bold;
+}
+
+#client a img {
+float: right;
+}
+
+/* 	------------------------ PAGE MODIFICATION CLIENT ------------------------	*/
+
+#modification {
+display: flex;
+flex-direction: column;
+}
+
+#modification .modif {
+width: 70%;
+text-align: center;
+margin: auto;
+}
+
+#modification .modif:nth-child(1) {
+text-align: center;
+color: orange;
+font-variant: small-caps;
+}
+
+#modification .modif:nth-child(2) form {
+background-color: rgba(230,230,230,0.4);
+margin: auto;
+}
+
+#modification table td {
+width: 400px;
+text-align: center;
+}
+
+#modification input  {
+text-align: center;
+}
+
+#modification label  {
+color: #258A0F;
+}
+
+/* 	------------------------ PAGE OPERATEUR ------------------------	*/
+
+#operateur {
+display: flex;
+margin-top: 1%;
+}
+
+#operateur .ptope:nth-child(1) {
+margin-top: 40px;
+margin-right: 1%;
+width: 29%;
+height: 400px;
+overflow: auto;
+}
+
+#operateur .ptope:nth-child(1) form {
+background-color: rgba(230,230,230,0.4);
+}
+
+#operateur .ptope:nth-child(2) {
+display: flex;
+flex-wrap: wrap;
+margin: auto;
+border: 1px solid black;
+width: 70%;
+height: 400px;
+overflow: auto;
+background-color: rgba(230,230,230,0.4);
+}
+
+#operateur .ptope:nth-child(2) .resope:nth-child(1) {
+width: 100%;
+}
+
+#operateur .ptope:nth-child(2) .resope:nth-child(2) {
+width: 20%;
+margin-left: 1%;
+margin-right: 1%;
+}
+
+#operateur .ptope:nth-child(2) .resope:nth-child(3) {
+width: 75%;
+}
+
+#operateur .ptope h2 {
+text-align: center;
+color: #258A0F;
+font-variant: small-caps;
+font-size: 20px;
+}
+
+#operateur a img {
+float: right;
+}
+
+#operateur label {
+font-size: 17px;
+color: orange;
+}
+
+/* 	------------------------ PAGE ADMINISTRATEUR ------------------------	*/
+
+#admin {
+display: flex;
+}
+
+#admin h2 {
+text-align: center;
+color: #258A0F;
+font-variant: small-caps;
+font-size: 20px;
+}
+
+#admin #resadm {
+display: flex;
+flex-wrap: wrap;
+border: 1px solid black;
+overflow: auto;
+width: 45%;
+margin: auto;
+height: 425px;
+background-color: rgba(230,230,230,0.4);
+align-items: center;
+}
+
+#admin #resadm .res:nth-child(1) {
+width: 100%;
+}
+
+#admin #resadm .res:nth-child(2) {
+margin: 1%;
+}
+
+#admin #resadm .res:nth-child(3) {
+margin-right: 1%;
+width: 60%;
+}
+
+#admin a img {
+float: right;
+}
+
+#admin #cliadm {
+display: flex;
+flex-wrap: wrap;
+border: 1px solid black;
+overflow: auto;
+width: 45%;
+margin: auto;
+height: 425px;
+background-color: rgba(230,230,230,0.4);
+align-items: center;
+}
+
+#admin #cliadm .cli:nth-child(1) {
+width: 100%;
+}
+
+#admin #cliadm .cli:nth-child(2) {
+margin: 1%;
+}
+
+#admin #cliadm .cli:nth-child(3) {
+margin-right: 1%;
+width: 55%;
+}
+
+
+

@@ -1,5 +1,5 @@
 <?php
-	
+
 	if(isset($_POST['nom'])&&isset($_FILES['certificat'])&&($_FILES['certificat']['error']==0)){
 		if(!(isset($_SESSION['sauvegardeAni'])&&isset($_SESSION['sauvegardeNom'])&&
 		(($_SESSION['sauvegardeAni']==$_POST['ani'])&&($_SESSION['sauvegardeNom']==$_POST['nom'])))){ //afin d'éviter le rmplissage quand on actualise !
@@ -21,11 +21,10 @@
 				));
 				$_SESSION['sauvegardeAni']=$_POST['ani'];
 				$_SESSION['sauvegardeNom']=$_POST['nom'];
+				echo("<script>document.location.replace('client.php');</script>");
 			}else echo('\n Le fichier n\'a pas une taille adaptée');
 
 		}
 
-
 	}
-	
 ?>

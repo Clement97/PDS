@@ -106,6 +106,16 @@ associées par exemple, ...)
             </div>
 
 
+                                                            <?php
+                                                    // include("Script_PHP/BDDAccess.php");
+                                                    // $requete=$bdd->prepare('delete from Animal where idAnimal=?');
+                                                    // $requete->execute(array($idAnimal));
+                                                    // $requete=$bdd->prepare('update reservations set valide=0 where idAnimal=?');
+                                                    // $requete->execute(array($idAnimal));                                            
+                                                ?>
+
+
+
 
 
 
