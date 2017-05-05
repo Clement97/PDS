@@ -1,1 +1,31 @@
-ReservationAnimal.php
+                <h2> Consultation et réservation </h2>
+                <form method="post" action="client.php">
+                    <fieldset>
+
+                        <label for="date" class="pt"> Date d'entrée de votre animal:  </label></br>
+                        <input type="date" name="date" id="date" placeholder="jj/mm/aaaa" size="8" maxlength="10" step="10" pattern="^(0?\d|[12]\d|3[01])-(0?\d|1[012])-((?19|20)\d{2})$" required/></br></br>
+
+                        <label for="duree" class="pt"> Durée du séjour </label></br>
+                        <input type="number" name="duree" id="duree" pattern="[1234567]"/></br></br>
+
+                        <label for="box" class="pt"> La condition de traitement de votre animal: </label> <br>
+                        <input type="radio" name="box" value="Groupe" id="Groupe"/ checked> <label for="Groupe" class="choixlabel">En groupe</label></br>
+
+                        <input type="radio" name="box" value="Seul" id="Seul"/> <label for="Seul" class="choixlabel">Seul</label></br></br>
+
+                		<input type="submit" value="Réserver"/>
+
+                <!-- 		<?php 
+                			if(isset($_POST['date'])&&isset($_POST['duree'])&&isset($_POST['box'])){
+
+                				        $date = new DateTime($_POST['date']);
+
+										$interval = $date->diff(date("d-m-Y"));
+
+										echo $interval->format('%a total days')."\n";
+
+                			}
+
+                		?> -->
+                	</fieldset>
+                </form>
