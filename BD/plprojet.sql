@@ -54,6 +54,7 @@ begin
      End;
      return 0;
   END WHILE;
+  return 1;
 end/
 
 
@@ -83,6 +84,7 @@ Begin
      End;
      return 0;
   END WHILE;
+  return 1;
 end/
 
 
@@ -98,17 +100,17 @@ begin
     ELSE
       IF(DATE_ADD(NOW(),interval 6 MONTH)>dateDebut) THEN 
           IF(estClient='1') THEN
-            IF(duree>7) THEN select 'impossible de réserver pour une durée supérieur à 7 jours si vous effectuez vous même la réservation' as 'Erreur:'; 
-            ELSE  IF(F_3Resa_Meme_Periode(idC,dateDebut,dateFin)='1') then select 'impossible de réserver plus de 2 places dans la même période si vous effectuez vous même la réservation' as 'Erreur:';
+            IF(duree>7) THEN select 'impossible de réserver pour une durée supérieur à 7 jours si vous effectuez vous même la réservation' as 'Erreur'; 
+            ELSE  IF(F_3Resa_Meme_Periode(idC,dateDebut,dateFin)='1') then select 'impossible de réserver plus de 2 places dans la même période si vous effectuez vous même la réservation' as 'Erreur';
                   ELSE insert into Reservation(idAnimal,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,NOW(),dateDebut,dateFin,F_Definir_Montant(DATEDIFF(dateFin,dateDebut),type,estIsole,promenade),1,estIsole);
                   end if;
             END IF;
           ELSE insert into Reservation(idAnimal,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,NOW(),dateDebut,dateFin,F_Definir_Montant(DATEDIFF(dateFin,dateDebut),type,estIsole,promenade),1,estIsole);
           END IF;
-      ELSE select 'impossible de réserver 6 mois à l\'avance' as 'Erreur:' ;
+      ELSE select 'impossible de réserver 6 mois à l\'avance' as 'Erreur' ;
       END IF;
     END IF;
-  ELSE select 'impossible de réserver tant que le carnet de Vaccination de votre animal n\'est pas à jour' as 'Erreur:';
+  ELSE select 'impossible de réserver tant que le carnet de Vaccination de votre animal n\'est pas à jour' as 'Erreur';
   END IF;
 end/
 

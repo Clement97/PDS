@@ -20,17 +20,23 @@ session_start();
             </div>
             <div class="ptclt">
                 <?php 
-                    if(!isset($_GET['action'])){    // si on ne va pas vers modifer ou reserver
+                    if(!(isset($_GET['action'])||isset($_SESSION['action']))){    // si on ne va pas vers modifer ou reserver
                         if(isset($_GET['idAnimal'])){    // si un idAnimal est qd même passer, on doit le supprimer
                             include("Script_PHP/deleteAnimal.php"); // script qui supprime animal et les resa associés
                         }
                         include("Script_PHP/GestionAnimaux.php");// même si on supprime on à derrière la gestion
                     }
                     else{
-                        if($_GET['action']=='reserver')
-                            include("Script_PHP/ReservationAnimal.php");
-                        if($_GET['action']=='modifier')
-                            include("Script_PHP/ModifReservationAnimal.php");
+                        if(isset($_SESSION['action']))
+                            if($_SESSION['action']=='reserver')
+                                include("Script_PHP/ReservationAnimal.php");
+                            else 
+                                include("Script_PHP/ModifReservationAnimal.php");
+                        else 
+                            if($_GET['action']=='reserver')
+                                include("Script_PHP/ReservationAnimal.php");
+                            else 
+                                include("Script_PHP/ModifReservationAnimal.php");
                     }
                 ?>
             </div>

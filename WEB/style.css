@@ -20,10 +20,11 @@ input
     box-shadow: none;
 }
 
- fieldset /* réduire la porté de ce selecteur si y'a des pb sur d'autre form*/
+form[action^="client.php"]
 {
-	margin: 30px;
+	margin:30px;
 }
+
 table
 
 {
