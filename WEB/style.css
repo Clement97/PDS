@@ -34,8 +34,11 @@ table
 
 }
 
-
-
+/*#invisible
+{
+	display:none;
+}
+*/
 
 td, th /* Mettre une bordure sur les td ET les th */
 

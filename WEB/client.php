@@ -30,7 +30,9 @@ if(isset($_SESSION['reservationOK'])){
                 <?php 
                     if(!(isset($_GET['action'])||isset($_SESSION['action']))){    // si on ne va pas vers modifer ou reserver
                         if(isset($_GET['idAnimal'])){    // si un idAnimal est qd même passer, on doit le supprimer
+                            echo("<div id=\"invisible\">");
                             include("Script_PHP/deleteAnimal.php"); // script qui supprime animal et les resa associés
+                            echo("</div>");
                         }
                         include("Script_PHP/GestionAnimaux.php");// même si on supprime on à derrière la gestion
                     }
