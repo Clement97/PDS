@@ -94,22 +94,25 @@ begin
   declare dateFin int DEFAULT DATE_ADD(dateDebut,interval duree-1 day);
   declare idC int DEFAULT (select idClient from animal where idAnimal=idA);
   declare carnetVaccinationValide tinyint DEFAULT( select carnetVaccinationValide from animal where idAnimal=idA);
-  IF(carnetVaccinationValide='1') then
-    IF(F_Resa_Meme_Animal(idA,dateDebut,dateFin)='1') THEN select 'Votre animal a déjà une reservation sur cette plage de date' as 'Erreur';
-    ELSE
-      IF(DATE_ADD(NOW(),interval 6 MONTH)>dateDebut) THEN 
-          IF(estClient='1') THEN
-            IF(duree>7) THEN select 'impossible de réserver pour une durée supérieur à 7 jours si vous effectuez vous même la réservation' as 'Erreur'; 
-            ELSE  IF(F_3Resa_Meme_Periode(idC,dateDebut,dateFin)='1') then select 'impossible de réserver plus de 2 places dans la même période si vous effectuez vous même la réservation' as 'Erreur';
-                  ELSE insert into Reservation(idAnimal,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,NOW(),dateDebut,dateFin,F_Definir_Montant(duree,(select type from Animal where idAnimal=idA),estIsole,promenade),1,estIsole);
-                  end if;
+  IF(dateDebut<=NOW()) then select 'impossible de réserver pour une date antérieur ou égale au jour même' as "Erreur";
+  ELSE
+    IF(carnetVaccinationValide='1') then
+      IF(F_Resa_Meme_Animal(idA,dateDebut,dateFin)='1') THEN select 'Votre animal a déjà une reservation sur cette plage de date' as 'Erreur';
+      ELSE
+        IF(DATE_ADD(NOW(),interval 6 MONTH)>dateDebut) THEN 
+            IF(estClient='1') THEN
+              IF(duree>7) THEN select 'impossible de réserver pour une durée supérieur à 7 jours si vous effectuez vous même la réservation' as 'Erreur'; 
+              ELSE  IF(F_3Resa_Meme_Periode(idC,dateDebut,dateFin)='1') then select 'impossible de réserver plus de 2 places dans la même période si vous effectuez vous même la réservation' as 'Erreur';
+                    ELSE insert into Reservation(idAnimal,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,NOW(),dateDebut,dateFin,F_Definir_Montant(duree,(select type from Animal where idAnimal=idA),estIsole,promenade),1,estIsole);
+                    end if;
+              END IF;
+            ELSE insert into Reservation(idAnimal,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,NOW(),dateDebut,dateFin,F_Definir_Montant(duree,(select type from Animal where idAnimal=idA),estIsole,promenade),1,estIsole);
             END IF;
-          ELSE insert into Reservation(idAnimal,dateReservation,dateDebut,dateFin,montant,valide,isolé) values (idA,NOW(),dateDebut,dateFin,F_Definir_Montant(duree,(select type from Animal where idAnimal=idA),estIsole,promenade),1,estIsole);
-          END IF;
-      ELSE select 'impossible de réserver 6 mois à l\'avance' as 'Erreur' ;
+        ELSE select 'impossible de réserver 6 mois à l\'avance' as 'Erreur' ;
+        END IF;
       END IF;
+    ELSE select 'impossible de réserver tant que le carnet de Vaccination de votre animal n\'est pas à jour' as 'Erreur';
     END IF;
-  ELSE select 'impossible de réserver tant que le carnet de Vaccination de votre animal n\'est pas à jour' as 'Erreur';
   END IF;
 
    
