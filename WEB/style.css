@@ -40,14 +40,6 @@ table
 }
 */
 
-td, th /* Mettre une bordure sur les td ET les th */
-
-{
-	padding:2px;
-	text-align: center;
-    border: 1px solid black;
-
-}
 
 
 
@@ -692,19 +684,32 @@ border: 1px solid black;
 background-color: rgba(230,230,230,0.4);
 }
 
+#client .ptclt td, th /* Mettre une bordure sur les td ET les th */
+
+{
+	padding:2px;
+	text-align: center;
+    border: 1px solid black;
+
+}
+
+
 #client .ptclt:nth-child(2), #client .ptclt:nth-child(3) {
 margin-bottom: 50px;
 font-size: 13px;
 }
 
-#client .ptclt:nth-child(4), #client .ptclt:nth-child(5) {
+#client .ptclt:nth-child(4) {
+font-size: 15px;
+margin-bottom: 50px;
+}
+
+#client .ptclt:nth-child(5) {
 height: 130px;
 margin-bottom: 50px;
 }
 
-#client .ptclt:nth-child(4) {
-font-size: 15px;
-}
+
 
 #client .ptclt:nth-child(5) textarea {
 margin: 1%;

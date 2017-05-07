@@ -25,7 +25,16 @@
 
 		<div class="entete">
 			<ul>
-				<li><a href="../connexion.php"> Mon compte </a></li>
+				<li>
+				<?php
+					if(isset($_SESSION['id'])){
+						echo("<a href=\"../espacePrive.php?init=1\"> Mon compte </a>");
+					}
+					else{
+						echo("<a href=\"../connexion.php\"> Mon compte </a>");
+					}
+				?>
+				</li>
 			</ul>
 		</div>
 	</nav>

@@ -2,7 +2,8 @@
 
 	if(isset($_POST['nom'])&&isset($_FILES['certificat'])&&($_FILES['certificat']['error']==0)){
 		if(!(isset($_SESSION['sauvegardeAni'])&&isset($_SESSION['sauvegardeNom'])&&
-		(($_SESSION['sauvegardeAni']==$_POST['ani'])&&($_SESSION['sauvegardeNom']==$_POST['nom'])))){ //afin d'éviter le rmplissage quand on actualise !
+		(($_SESSION['sauvegardeAni']==$_POST['ani'])&&($_SESSION['sauvegardeNom']==$_POST['nom'])))){ 
+		//afin d'éviter le rmplissage quand on actualise !
 			if(($_FILES['certificat']['size'] <= 1000000) && ($_FILES['certificat']['size'] >= 10000)){
 				move_uploaded_file($_FILES['certificat']['tmp_name'],'Certificats/'.basename($_FILES['certificat']['name']));
 				include("Script_PHP/BDDAccess.php");

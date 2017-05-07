@@ -2,13 +2,14 @@
 session_start();
 ?> -->
 <?php
-if(isset($_SESSION['reservationOK'])){
-    if($_SESSION['reservationOK']==1){
-    unset($_SESSION['idAnimal']);
-    unset($_SESSION['action']);
 
-    }
+if(isset($_GET['init'])){
+
+    unset($_SESSION['idAnimal']);
+    unset($_SESSION['actionA']);
+
 }
+
 
 ?>
 
@@ -26,24 +27,25 @@ if(isset($_SESSION['reservationOK'])){
             <div id="modifclient">
                 <a href="modification.php"> Modification des informations de votre profil </a>
             </div>
-            <div class="ptclt">
+            <div class="ptclt" onclick="1">
                 <?php 
-                    if(!(isset($_GET['action'])||isset($_SESSION['action']))){    // si on ne va pas vers modifer ou reserver
+                    if(!(isset($_GET['actionA'])||isset($_SESSION['actionA']))){    // si on ne va pas vers modifer ou reserver
                         if(isset($_GET['idAnimal'])){    // si un idAnimal est qd même passer, on doit le supprimer
                             echo("<div id=\"invisible\">");
                             include("Script_PHP/deleteAnimal.php"); // script qui supprime animal et les resa associés
                             echo("</div>");
                         }
                         include("Script_PHP/GestionAnimaux.php");// même si on supprime on à derrière la gestion
+
                     }
                     else{
-                        if(isset($_SESSION['action']))
-                            if($_SESSION['action']=='reserver')
+                        if(isset($_SESSION['actionA']))
+                            if($_SESSION['actionA']=='reserver')
                                 include("Script_PHP/ReservationAnimal.php");
                             else 
                                 include("Script_PHP/ModifReservationAnimal.php");
                         else 
-                            if($_GET['action']=='reserver')
+                            if($_GET['actionA']=='reserver')
                                 include("Script_PHP/ReservationAnimal.php");
                             else 
                                 include("Script_PHP/ModifReservationAnimal.php");
@@ -70,13 +72,14 @@ if(isset($_SESSION['reservationOK'])){
                 </form>
             </div>
 
-            <div class="ptclt">
-                <h2> Mes réservations </h2>
-                <ul>
-                    <li> 15/03/17 au 17/03/17 - chien - isolé - Pupuce - 120€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                    <li> 18/03/17 au 24/03/17 - rongeur - en groupe - Baxter - 70€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                    <li> 19/03/17 au 20/03/17 - chien avec extra - seul - Tetine - 45€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                </ul>
+            <div class="ptclt" onclick="0">
+
+                <?php 
+                    if(!isset($_GET['idReservation']))
+                        include("Script_PHP/GestionReservations.php");
+                    else
+                        include("Script_PHP/deleteReservation.php");
+                ?>
             </div>
             <div class="ptclt">
                 <h2> Laisser un commentaire au gérant </h2>
@@ -87,15 +90,27 @@ if(isset($_SESSION['reservationOK'])){
             </div>
         </div>
         <?php include("structure/footer.php") ?>
-                                      <script>
-                                    var boutonsSupprimer = document.querySelectorAll('button[name]');
+                                <script>
+                                    var boutonsSupprimerAnimal = document.querySelectorAll('#client .ptclt[onclick=\'1\'] button[name]');
 
-                                    for(var i=0;i<boutonsSupprimer.length;i++){
-                                        boutonsSupprimer[i].addEventListener("click", function(event) {
+                                    for(var i=0;i<boutonsSupprimerAnimal.length;i++){
+                                        boutonsSupprimerAnimal[i].addEventListener("click", function(event) {
                                             var confOk=confirm("Êtes-vous vraiment sûr de supprimer cet animal ? (toutes les reservations associez seront annulées)");
                                             var idAnimal =event.target.getAttribute('name');
                                             if(confOk){
                                                 document.location.replace('client.php?idAnimal='+idAnimal);
+                                            }
+                                        });
+                                    }
+
+                                    var boutonsSupprimerReservation = document.querySelectorAll('#client .ptclt[onclick=\'0\'] button[name]');
+
+                                    for(var i=0;i<boutonsSupprimerReservation.length;i++){
+                                        boutonsSupprimerReservation[i].addEventListener("click", function(event) {
+                                            var confOk=confirm("Êtes-vous vraiment sûr d'annuler cettes reservation ?");
+                                            var idReservation =event.target.getAttribute('name');
+                                            if(confOk){
+                                                document.location.replace('client.php?idReservation='+idReservation);
                                             }
                                         });
 

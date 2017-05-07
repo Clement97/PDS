@@ -73,10 +73,21 @@ session_start();
         <?php include("structure/footer.php") ?>
 
                               <script>
-                                    var boutonsSupprimer = document.querySelectorAll('button[name]');
+                                    var boutonsSupprimerAnimal = document.querySelectorAll('button[name]');
 
-                                    for(var i=0;i<boutonsSupprimer.length;i++){
-                                        boutonsSupprimer[i].addEventListener("click", function(event) {
+                                    for(var i=0;i<boutonsSupprimerAnimal.length;i++){
+                                        boutonsSupprimerAnimal[i].addEventListener("click", function(event) {
+                                            var confOk=confirm("Êtes-vous vraiment sûr de supprimer cet animal ? (toutes les reservations associez seront annulées)");
+                                            var idAnimal =event.target.getAttribute('name');
+                                            if(confOk){
+                                                document.location.replace('client.php?idAnimal='+idAnimal);
+                                            }
+                                        });
+
+                                    var boutonsSupprimerReservation = document.querySelectorAll('button[name]');
+
+                                    for(var i=0;i<boutonsSupprimerReservation.length;i++){
+                                        boutonsSupprimerReservation[i].addEventListener("click", function(event) {
                                             var confOk=confirm("Êtes-vous vraiment sûr de supprimer cet animal ? (toutes les reservations associez seront annulées)");
                                             var idAnimal =event.target.getAttribute('name');
                                             if(confOk){
@@ -85,6 +96,7 @@ session_start();
                                         });
 
                                     }
+
                                 </script>
     </body>
 </html>

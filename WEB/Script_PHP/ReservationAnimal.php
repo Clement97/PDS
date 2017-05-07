@@ -10,6 +10,7 @@
 		else return '0';
 	}
 
+
     function reservationEffectuee(&$appelProcedure){
         include("Script_PHP/BDDAccess.php");
         if($bdd->exec($appelProcedure)==0){
@@ -18,7 +19,7 @@
         else return 1;
     }
 
-	$_SESSION['action']='reserver';
+	$_SESSION['actionA']='reserver';
 
 	if(isset($_GET['idAnimal']))
 		$_SESSION['idAnimal']=$_GET['idAnimal'];
@@ -33,7 +34,7 @@
                         <input type="date" name="date" id="date" placeholder="aaaa-mm-jj" size="8"  pattern="^[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" required /></br></br>
 
                         <label for="duree" class="pt"> Durée du séjour </label></br>
-                        <input type="text" name="duree" id="duree" pattern="[1234567]" required/></br></br>
+                        <input type="text" name="duree" id="duree" pattern="[1234567]" placeholder="1-7" required/></br></br>
 
                         <label for="box" class="pt"> La condition de traitement de votre animal: </label> <br>
                         <input type="radio" name="box" value="Groupe" id="Groupe"/ checked > <label for="Groupe" class="choixlabel">En groupe</label></br>
@@ -47,23 +48,22 @@
                 			if(isset($_POST['date'])&&isset($_POST['duree'])&&isset($_POST['box'])){
                                 if (! (empty($_POST['date'])||empty($_POST['duree'])||empty($_POST['box']))){
 
+                                    $appelProcedure='CALL P_Reservation('.$_SESSION['idAnimal'].',\''.$_POST['date'].'\','.$_POST['duree'].',1,'.convertBox($_POST['box']).',';
 
-                                    $appelProcedure='CALL P_Reservation('.$_SESSION['idAnimal'].',\''.$_POST['date'].'\','.$_POST['duree'].',1,'.convertBox($_POST['box']).',0)';
-
+                                    if(isset($_POST['Promenade'])&&($_POST['Promenade']=='on'))
+                                        $appelProcedure=$appelProcedure.'1)';
+                                    else
+                                        $appelProcedure=$appelProcedure.'0)';
+                                    
                                     include("Script_PHP/BDDAccess.php");
                                     if(reservationEffectuee($appelProcedure)==1){
                                         echo("<script> alert('Votre reservation a bien été effectuée')</script>");
-                                        $_SESSION['reservationOK']=1;
-                                        sleep(1);
-
-                                        echo("<meta http-equiv=\"refresh\" content=\"1;url=espacePrive.php\"/>");
+                                        echo("<meta http-equiv=\"refresh\" content=\"1;url=espacePrive.php?init=1\"/>");
                                     }
                                     else{
                                         $requete=$bdd->query($appelProcedure);
                                         if($donnees = $requete->fetch()){
                                                 echo($donnees['Erreur']);
-                                                echo($appelProcedure);
-                                                echo($_SESSION['id']);
                                         }
                                     }
 
