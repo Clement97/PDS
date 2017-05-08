@@ -1,7 +1,6 @@
 
 <?php
 
-    unset($_SESSION['reservationOK']);
 
 	function convertBox(&$box){
 		if(($box)=='Seul'){
@@ -26,7 +25,7 @@
 
 ?>
 
-            <h2> Consultation et réservation </h2>
+            <h2>Réservation </h2>
                 <form method="post" action="client.php">
                     <fieldset>
                         <div id="input">
@@ -43,7 +42,6 @@
                         <div id=insertion></div>
                 		<input type="submit" value="Reserver" formenctype=""/></br></br>
 
-                        <div id="invisible" >
   						<?php 
                 			if(isset($_POST['date'])&&isset($_POST['duree'])&&isset($_POST['box'])){
                                 if (! (empty($_POST['date'])||empty($_POST['duree'])||empty($_POST['box']))){
@@ -69,8 +67,7 @@
 
                                 }
                 			} 
-	// mettre à jour avant affichage si le carnet de vaccination est toujours valide ?>
-                        </div>
+                        ?>
                 	</fieldset>
                     <?php
                         include("Script_PHP/BDDAccess.php");

@@ -9,31 +9,31 @@ session_start();
 		include("Script_PHP/BDDAccess.php");
 
 		if($_SESSION['type']=='Client'){
-			include("client.php");
 			$requeteID=$bdd->prepare('select idClient from Client where email=?');
 			$requeteID->execute(array($_SESSION['login']));
 			if($donnees=$requeteID->fetch()){
 				$_SESSION['id']=$donnees['idClient'];
 			}
+			include("client.php");
 
 		}
 
 		if($_SESSION['type']=='Operateur'){
-			include("operateur.php");
 			$requeteID=$bdd->prepare('select idOperateur from Operateur where login=?');
 			$requeteID->execute(array($_SESSION['login']));
 			if($donnees=$requeteID->fetch()){
 				$_SESSION['id']=$donnees['idOperateur'];
 			}
+			include("operateur.php");
 		}
 
 		if($_SESSION['type']=='Administrateur'){
-			include("administrateur.php");
 			$requeteID=$bdd->prepare('select idAdministrateur from Administrateur where login=?');
 			$requeteID->execute(array($_SESSION['login']));
 			if($donnees=$requeteID->fetch()){
 				$_SESSION['id']=$donnees['idAdministrateur'];
 			}
+			include("administrateur.php");
 		}
 
 

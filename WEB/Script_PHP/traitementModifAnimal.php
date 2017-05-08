@@ -1,4 +1,6 @@
 <?php
+	if(isset($_GET['idAnimal']))
+		$_SESSION['idAnimal']=$_GET['idAnimal'];
 
 	if(isset($_POST['nom'])&&isset($_FILES['certificat'])&&($_FILES['certificat']['error']==0)){
 		if(!(isset($_SESSION['sauvegardeAni'])&&isset($_SESSION['sauvegardeNom'])&&
@@ -11,20 +13,31 @@
 				if(isset($_POST['identification'])){
 					$identification=$_POST['identification'];
 				}
-				$insert=$bdd->prepare('insert into Animal(idClient,type,nom,identification,carnetVaccinationValide,dateUpload) values(:idClient,:type,:nom,:identification,:carnetVaccinationValide,:dateUpload)');
-				$insert->execute(array(
-					'idClient'=> $_SESSION['id'],
+				$update=$bdd->prepare('
+					update Animal 
+					set type=:type,
+						nom=:nom,
+					 	identification=:identification,
+						carnetVaccinationValide=:carnetVaccinationValide,
+						dateUpload=:dateUpload
+					where idAnimal=:idAnimal');
+
+
+
+				$update->execute(array(
 					'type'=>$_POST['ani'],
 					'nom'=>$_POST['nom'],
 					'identification'=>$identification,
 					'carnetVaccinationValide'=>1,
-					'dateUpload'=>date("Y-m-d")
-				));
+					'dateUpload'=>date("Y-m-d"),
+					'idAnimal'=>$_SESSION['idAnimal']));
+
 				$_SESSION['sauvegardeAni']=$_POST['ani'];
 				$_SESSION['sauvegardeNom']=$_POST['nom'];
 				echo("<script>document.location.replace('espacePrive.php?init=1');</script>");
 			}else echo('\n Le fichier n\'a pas une taille adaptée');
-		}
 
-	}
+		}else echo("test1");
+
+	}else echo("test2");
 ?>

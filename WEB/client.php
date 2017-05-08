@@ -7,6 +7,10 @@ if(isset($_GET['init'])){
 
     unset($_SESSION['idAnimal']);
     unset($_SESSION['actionA']);
+    unset($_SESSION['idReservation']);
+    unset($_SESSION['actionR']);
+    unset($_SESSION['sauvegardeAni']);
+    unset($_SESSION['sauvegardeNim']);
 
 }
 
@@ -30,12 +34,12 @@ if(isset($_GET['init'])){
             <div class="ptclt" onclick="1">
                 <?php 
                     if(!(isset($_GET['actionA'])||isset($_SESSION['actionA']))){    // si on ne va pas vers modifer ou reserver
-                        if(isset($_GET['idAnimal'])){    // si un idAnimal est qd même passer, on doit le supprimer
+                        if(isset($_GET['idAnimal'])){    // alors si un idAnimal est qd même passer, on doit le supprimer
                             echo("<div id=\"invisible\">");
                             include("Script_PHP/deleteAnimal.php"); // script qui supprime animal et les resa associés
                             echo("</div>");
                         }
-                        include("Script_PHP/GestionAnimaux.php");// même si on supprime on à derrière la gestion
+                        include("Script_PHP/GestionAnimaux.php");// alors a la gestion des animaux (même si on a supprimé)
 
                     }
                     else{
@@ -43,12 +47,12 @@ if(isset($_GET['init'])){
                             if($_SESSION['actionA']=='reserver')
                                 include("Script_PHP/ReservationAnimal.php");
                             else 
-                                include("Script_PHP/ModifReservationAnimal.php");
+                                include("Script_PHP/ModifAnimal.php");
                         else 
                             if($_GET['actionA']=='reserver')
                                 include("Script_PHP/ReservationAnimal.php");
                             else 
-                                include("Script_PHP/ModifReservationAnimal.php");
+                                include("Script_PHP/ModifAnimal.php");
                     }
                 ?>
             </div>
@@ -73,14 +77,20 @@ if(isset($_GET['init'])){
             </div>
 
             <div class="ptclt" onclick="0">
-
                 <?php 
-                    if(!isset($_GET['idReservation']))
+                    if(!(isset($_GET['idReservation'])||isset($_SESSION['idReservation'])))
                         include("Script_PHP/GestionReservations.php");
-                    else
-                        include("Script_PHP/deleteReservation.php");
+                    else{
+                        if(isset($_GET['actionR'])||isset($_SESSION['actionR'])) {
+                            include("Script_PHP/ModifReservationAnimal.php");
+                        }
+                        else{
+                            include("Script_PHP/deleteReservation.php");
+                        }
+                    }
                 ?>
             </div>
+
             <div class="ptclt">
                 <h2> Laisser un commentaire au gérant </h2>
                 <form method="post" action="">
@@ -90,7 +100,9 @@ if(isset($_GET['init'])){
             </div>
         </div>
         <?php include("structure/footer.php") ?>
+
                                 <script>
+
                                     var boutonsSupprimerAnimal = document.querySelectorAll('#client .ptclt[onclick=\'1\'] button[name]');
 
                                     for(var i=0;i<boutonsSupprimerAnimal.length;i++){
@@ -115,6 +127,7 @@ if(isset($_GET['init'])){
                                         });
 
                                     }
+
                                 </script>
 
     </body>
