@@ -17,10 +17,10 @@
 			<label for="nom" class="pt" > Le nom de votre animal  </label></br>
 			<input type="text" name="nom" id="nom" placeholder="Nom" size="10" pattern="[a-zA-Z]{3,25}" required/></br></br>    
 			<label for="identification" class="pt" pattern="[a-zA-Z0-9]{3,25}" > L'identification de votre animal (tatouage/puce) </label></br>
-			<input type="text" name="identification" id="identification" placeholder="012345" size="10" /></br></br>
+			<input type="text" name="identification" id="identification" placeholder="AZ2JZ8" size="10" pattern="[a-zA-Z0-9]{3,10}" required/></br></br>
 			<label for="certificat" class="pt" > Envoyez-nous le carnet de vaccin de votre animal </label></br>
 			<input type="file" name="certificat" id="certificat" required /></br></br>
 			<input type="submit" value="Enregistrer"/>
-			<?php include("Script_PHP/traitementModifAnimal.php") ?>
+			<?php include("Script_PHP/Client/traitementModifAnimal.php") ?>
 		</fieldset>
 	</form>

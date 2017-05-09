@@ -1,5 +1,3 @@
-<h2> mes animaux</h2>
-
 <?php
 	function updateCarnetNonValide(&$idAnimal){
 		include("Script_PHP/BDDAccess.php");
@@ -25,7 +23,7 @@
 		select IF(DATE_ADD(dateUpload,interval 1 YEAR)>NOW(),1,0) as CarnetBon,idAnimal
 		from Animal
 		where idClient=?');
-	$verifValiditeCarnet->execute(array($_SESSION['id']));
+	$verifValiditeCarnet->execute(array($_SESSION['idClient']));
 
 	while($donnees=$verifValiditeCarnet->fetch()){
 		if($donnees['CarnetBon']==0){
@@ -38,7 +36,7 @@
 		select type,nom,identification,carnetVaccinationValide,dateUpload,idAnimal 
 		from Animal 
 		where idClient=?');
-	$requete->execute(array($_SESSION['id']));
+	$requete->execute(array($_SESSION['idClient']));
 
 	// mettre à jour avant affichage si le carnet de vaccination est toujours valide
 	if($donnees=$requete -> fetch()){
@@ -50,7 +48,6 @@
 					<th>Etat Carnet</th>
 					<th>dateUpload</th>
 					<th>Reserver</th>
-					<th>Modifier</th>
 					<th>Effacer</th>
 				</tr>
 				<tr>	
@@ -59,14 +56,14 @@
 					<td>".estVide($donnees['identification'])."</td>
 					<td>".est1($donnees['carnetVaccinationValide'])."</td>
 					<td>".$donnees['dateUpload']."</td>
-					<td><a href=\"client.php?actionA=reserver&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td></td>
-					<td><a href=\"client.php?actionA=modifier&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >M</button> </td></td>
+					<td><a href=\"espacePrive.php?action=reserver&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td></td>
 					<td><button type=\"button\" name=".$donnees['idAnimal'].">X</button> </td>
 				</tr>
 			");
 	}
 	else{
-		echo("<h3 style='text-align:center'>Vous n'avez pas encore ajouté d'animal</h3>");
+    	echo("<script> alert('Ce client n\'a pas d'animal actuellement'); </script>");
+		echo("<script>document.location.replace('espacePrive.php?init=1');</script>");
 	}
 	while($donnees=$requete -> fetch()){
 	echo("
@@ -76,8 +73,7 @@
 					<td>".estVide($donnees['identification'])."</td>
 					<td>".est1($donnees['carnetVaccinationValide'])."</td>
 					<td>".$donnees['dateUpload']."</td>
-					<td><a href=\"client.php?actionA=reserver&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td>
-					<td><a href=\"client.php?actionA=modifier&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >M</button> </td>
+					<td><a href=\"espacePrive.php?action=reserver&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td>
 					<td><button type=\"button\" name=".$donnees['idAnimal'].">X</button> </td>
 
 
@@ -90,8 +86,3 @@
 ?>
 
 
-<!--
-    <tr> </tr>: indique le début et la fin d'une ligne du tableau ;
-
-    <td> </td>: indique le début et la fin du contenu d'une cellule.
- -->

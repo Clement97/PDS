@@ -1,4 +1,3 @@
-<h2> Mes réservations </h2>
 <?php
 
     function gestion(&$isole){
@@ -16,7 +15,8 @@
         from Reservation join Animal as a using(idAnimal) join Client using(idClient)
          where idClient=? and valide=1
          order by dateDebut');
-    $requete->execute(array($_SESSION['id']));
+    $requete->execute(array($_SESSION['idClient']));
+
     if($donnees=$requete -> fetch()){
     echo("  <table>
                 <tr>
@@ -38,13 +38,14 @@
                     <td>".$donnees['dateFin']."</td>
                     <td>".$donnees['montant']."</td>
                     <td>".gestion($donnees['isolé'])."</td>
-                    <td><a href=\"client.php?actionR=modifier&amp;idReservation=".$donnees['idReservation']."\"><button type=\"button\" >M</button> </td></td>
+                    <td><a href=\"espacePrive.php?action=modifier&amp;idReservation=".$donnees['idReservation']."\"><button type=\"button\" >M</button> </td></td>
                     <td><button type=\"button\" name=".$donnees['idReservation'].">X</button> </td>
                 </tr>
         ");
     }
     else{
-        echo("<h3 style='text-align:center'>Vous n'avez pas encore effectué de réservation</h3>");
+    	echo("<script> alert('Ce client n\'a pas de réservations actuellement'); </script>");
+		echo("<script>document.location.replace('espacePrive.php?init=1');</script>");
     }
     while($donnees=$requete -> fetch()){
     echo("
@@ -56,8 +57,10 @@
                     <td>".$donnees['dateFin']."</td>
                     <td>".$donnees['montant']."</td>
                     <td>".gestion($donnees['isolé'])."</td>
-                    <td><a href=\"client.php?actionR=modifier&amp;idReservation=".$donnees['idReservation']."\"><button type=\"button\" >M</button> </td></td>
+                    <td><a href=\"espacePrive.php?action=modifier&amp;idReservation=".$donnees['idReservation']."\"><button type=\"button\" >M</button> </td></td>
                     <td><button type=\"button\" name=".$donnees['idReservation'].">X</button> </td>
                 </tr>    "); 
     }
-    echo("  </table>"); ?>
+    echo("  </table>"); 
+
+?>

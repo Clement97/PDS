@@ -1,3 +1,8 @@
+<?php 
+session_start();
+
+?>
+
 
 
 <!DOCTYPE html>
@@ -31,11 +36,11 @@
                             <tr>
                                 <td>
                                     <label for="nom"> Nom </label></br>
-                                    <input type="text" name="nom" id="nom" placeholder="Doe" size="20" pattern="[a-zA-Z]{3,25}" required/> 
+                                    <input type="text" name="nom" id="nom" placeholder="Doe" size="20" pattern="^[a-zA-Z]{3,25}$}" required/> 
                                 </td>
                                 <td>	
                                     <label for="prenom"> Prénom </label></br>
-                                    <input type="text" name="prenom" id="prenom" alt='test' placeholder="John" size="20" pattern="[a-zA-Z]{3,25}" required /> 
+                                    <input type="text" name="prenom" id="prenom" alt='test' placeholder="John" size="20" pattern="^[a-zA-Z]{3,25}$" required /> 
                                 </td>
                             </tr>
                             <tr>

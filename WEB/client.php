@@ -36,23 +36,23 @@ if(isset($_GET['init'])){
                     if(!(isset($_GET['actionA'])||isset($_SESSION['actionA']))){    // si on ne va pas vers modifer ou reserver
                         if(isset($_GET['idAnimal'])){    // alors si un idAnimal est qd même passer, on doit le supprimer
                             echo("<div id=\"invisible\">");
-                            include("Script_PHP/deleteAnimal.php"); // script qui supprime animal et les resa associés
+                            include("Script_PHP/Client/deleteAnimal.php"); // script qui supprime animal et les resa associés
                             echo("</div>");
                         }
-                        include("Script_PHP/GestionAnimaux.php");// alors a la gestion des animaux (même si on a supprimé)
+                        include("Script_PHP/Client/GestionAnimaux.php");// alors a la gestion des animaux (même si on a supprimé)
 
                     }
                     else{
                         if(isset($_SESSION['actionA']))
                             if($_SESSION['actionA']=='reserver')
-                                include("Script_PHP/ReservationAnimal.php");
+                                include("Script_PHP/Client/ReservationAnimal.php");
                             else 
-                                include("Script_PHP/ModifAnimal.php");
+                                include("Script_PHP/Client/ModifAnimal.php");
                         else 
                             if($_GET['actionA']=='reserver')
-                                include("Script_PHP/ReservationAnimal.php");
+                                include("Script_PHP/Client/ReservationAnimal.php");
                             else 
-                                include("Script_PHP/ModifAnimal.php");
+                                include("Script_PHP/Client/ModifAnimal.php");
                     }
                 ?>
             </div>
@@ -66,12 +66,12 @@ if(isset($_GET['init'])){
                         <input type="radio" name="ani" value="chien" id="chien"/> <label for="Chien">Chien</label></br></br>
                         <label for="nom" class="pt" > Le nom de votre animal  </label></br>
                         <input type="text" name="nom" id="nom" placeholder="Nom" size="10" pattern="[a-zA-Z]{3,25}" required/></br></br>    
-                        <label for="identification" class="pt" pattern="[a-zA-Z0-9]{3,25}" > L'identification de votre animal (tatouage/puce) </label></br>
-                        <input type="text" name="identification" id="identification" placeholder="012345" size="10" /></br></br>
+                        <label for="identification" class="pt"> L'identification de votre animal (tatouage/puce) </label></br>
+                        <input type="text" name="identification" id="identification" placeholder="AZ2JZ8" size="10" pattern="[a-zA-Z0-9]{3,10}" required /></br></br>
                         <label for="certificat" class="pt" > Envoyez-nous le carnet de vaccin de votre animal </label></br>
                         <input type="file" name="certificat" id="certificat" required /></br></br>
                         <input type="submit" value="Enregistrer"/>
-                        <?php include("Script_PHP/traitementAddAnimal.php") ?>
+                        <?php include("Script_PHP/Client/traitementAddAnimal.php") ?>
                     </fieldset>
                 </form>
             </div>
@@ -79,13 +79,13 @@ if(isset($_GET['init'])){
             <div class="ptclt" onclick="0">
                 <?php 
                     if(!(isset($_GET['idReservation'])||isset($_SESSION['idReservation'])))
-                        include("Script_PHP/GestionReservations.php");
+                        include("Script_PHP/Client/GestionReservations.php");
                     else{
                         if(isset($_GET['actionR'])||isset($_SESSION['actionR'])) {
-                            include("Script_PHP/ModifReservationAnimal.php");
+                            include("Script_PHP/Client/ModifReservationAnimal.php");
                         }
                         else{
-                            include("Script_PHP/deleteReservation.php");
+                            include("Script_PHP/Client/deleteReservation.php");
                         }
                     }
                 ?>

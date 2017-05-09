@@ -1,5 +1,6 @@
 <?php 
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -32,17 +33,6 @@ session_start();
                         <p id="centrer"><input type="submit" value="connexion"/></p>
                     </form>
                 </div>
-            </div>
-            <div id="post-cadre">
-                <p>
-                    --INFORMATION PDS--<br/>
-                    Les liens ci-dessous vous permettent de voir les pages des différents profils après la connexion:<br/>
-                <ul>
-                    <li> <a href="client.php"> CLIENT </a> </li>
-                    <li> <a href="operateur.php"> OPERATEUR </a> </li>
-                    <li> <a href="administrateur.php"> ADMINISTRATEUR </a> </li>
-                </ul>
-                </p>
             </div>
         </div>
         <?php include("Script_PHP/traitementConnexion.php") ?>

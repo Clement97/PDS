@@ -26,14 +26,18 @@
 		<div class="entete">
 			<ul>
 				<li>
-				<?php
-					if(isset($_SESSION['id'])){
-						echo("<a href=\"../espacePrive.php?init=1\"> Mon compte </a>");
-					}
-					else{
-						echo("<a href=\"../connexion.php\"> Mon compte </a>");
-					}
-				?>
+					Mon compte
+					<ul>
+						<?php
+							if(isset($_SESSION['id'])){
+								echo("	<li><a href=\"../espacePrive.php?init=1\"> Page de gestion </a></li>
+										<li><a href=\"../index.php?offline=1\"> Deconnexion </a></li> ");
+							}
+							else{
+								echo("<li><a href=\"../connexion.php\"> Connexion </a></li>");
+							}
+						?>
+					</ul>
 				</li>
 			</ul>
 		</div>

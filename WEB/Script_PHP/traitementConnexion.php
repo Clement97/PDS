@@ -1,7 +1,15 @@
 <?php 
+	
+	function testTableAdminVide(){
+		include("Script_PHP/BDDAccess.php");
+		$requeteTest=$bdd->query('select * from Administrateur');
+		if($donnees=$requeteTest->fetch()){
+			return false;
+		}
+		return true;
+	}
 
-include("Script_PHP/BDDAccess.php");
-
+	include("Script_PHP/BDDAccess.php");
 
 	if(isset($_POST['login'])&&isset($_POST['mdp'])){
 
@@ -33,7 +41,15 @@ include("Script_PHP/BDDAccess.php");
 					$truePassword=true;
 				}
 			}else{ // puis pour un admin
+				if(testTableAdminVide()){
+					$login='root';
+					$password=password_hash('toor',PASSWORD_DEFAULT);
+					$creationAdmin=$bdd->prepare('insert into Administrateur(login,password) values(:login,:password)');
+					$creationAdmin->execute(array(
+						'login'=>$login,
+						'password'=>$password));
 
+				}
 				$requeteAdministrateur=$bdd->prepare('select login,password from Administrateur where login=?');
 				$requeteAdministrateur->execute(array($_POST['login']));
 
@@ -75,6 +91,7 @@ include("Script_PHP/BDDAccess.php");
 
 
 <!--
+
 
 
 Notice

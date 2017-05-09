@@ -1,3 +1,39 @@
+<?php
+
+    if(isset($_GET['action']))
+        $_SESSION['action']=$_GET['action'];
+
+    if(isset($_GET['idClient'])){
+        $_SESSION['idClient']=$_GET['idClient'];
+    }
+
+    if(isset($_GET['idOperateur']))
+        $_SESSION['idOperateur']=$_GET['idOperateur'];
+
+    if(isset($_GET['idAdministrateur']))
+        $_SESSION['idAdministrateur']=$_GET['idAdministrateur'];
+
+    if(isset($_GET['idReservation']))
+        $_SESSION['idReservation']=$_GET['idReservation'];
+
+    if(isset($_GET['idAnimal']))
+        $_SESSION['idAnimal']=$_GET['idAnimal'];
+
+if(isset($_GET['init'])){
+
+    unset($_SESSION['action']);
+    unset($_SESSION['idClient']);
+    unset($_SESSION['idOperateur']);
+    unset($_SESSION['idAdministrateur']);
+    unset($_SESSION['idReservation']);
+    unset($_SESSION['idAnimal']);
+
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -12,81 +48,120 @@
         <?php include("structure/header.php") ?>
         
         <div id="admin">
-            <div id="resadm">
-                <div class="res">
-                    <h2> Consultation et suppression des réservations </h2>
-                </div>
-                <div class="res">
-                    <form method="post" action="">
-                        <fieldset>
-                        <label for="datedeb" class="pt"> Date début  </label></br>
-                        <input type="date" name="datedeb" id="datedeb" placeholder="jj/mm/aaaa" size="4" maxlength="10" step="10" required/></br></br>
-                        <!--min= date('d/m/Y') et max= date('d/m/Y')+6 mois pour respecter conditions du PDS-->
-                        <label for="datefin" class="pt"> Date de fin </label></br>
-                        <input type="date" name="datefin" id="datefin" placeholder="jj/mm/aaaa" size="4" maxlength="10" step="10" required/></br></br>
-                        <label> Type d'animal </label></br>
-                        <select name="animal" size="1">
-                            <option> Tous </option>
-                            <option> Chien </option>
-                            <option> Chien avec extra </option>
-                            <option> Chat </option>
-                            <option> Rongeur </option>
-                        </select>
-                        <br/> <br/>
-                        <input type="submit" value="rechercher"/>
-                    </form>
-                </div>
-                <div class="res">
-                    <ul>
-                        <li> MARTI Enzo - 15/03/17 au 17/03/17 - chat - isolé - Ulahup - 90€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                        <li> ALDOBRANDI Clément - 18/03/17 au 24/03/17 - chien - isolé - Jul - 280€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                        <li> MARTI Enzo - 15/03/17 au 17/03/17 - chat - isolé - Ulahup - 90€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                        <li> ALDOBRANDI Clément - 18/03/17 au 24/03/17 - chien - isolé - Jul - 280€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                        <li> MARTI Enzo - 15/03/17 au 17/03/17 - chat - isolé - Ulahup - 90€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                        <li> ALDOBRANDI Clément - 18/03/17 au 24/03/17 - chien - isolé - Jul - 280€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                    </ul>
-                </div>
-            </div>
-            <div id="cliadm">
-                <div class="cli">
-                    <h2> Consultation et suppression des clients </h2>
-                </div>
-                <div class="cli">
-                    <form method="post" action="">
-                        <fieldset>
-                        <label for="nom"> Nom </label></br>
-                        <input type="text" name="nom" id="nom" placeholder="John" size="15" required/></br></br>
-                        <label for="prenom"> Prénom </label></br>
-                        <input type="text" name="prenom" id="prenom" placeholder="Doe" size="15" required/></br></br>
-                        <label for="tel"> Téléphone </label></br>
-                        <input type="text" name="tel" id="tel" placeholder="0607080900" size="15" required/></br></br>
-                        <label for="adresse"> Adresse </label></br>
-                        <input type="text" name="adresse" id="adresse" placeholder="12 avenue des Lacs" size="15" required/></br></br>
-                        <input id="center" type="submit" value="Envoyer"/>
-                    </form>
-                </div>
-                <div class="cli">
-                    <ul>
-                        <li> MARTI - Enzo - 0611111111 - 24 avenue du oui <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                        <li> MARTI - Enzo - 0611111111 - 24 avenue du oui <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                        <li> MARTI - Enzo - 0611111111 - 24 avenue du oui <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                        <li> MARTI - Enzo - 0611111111 - 24 avenue du oui <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
-                        <br/>
-                    </ul>
-                </div>
+                    <h2> Consultation des différents comptes</h2>
+                    <form method="post" action="administrateur.php">
+                       <div class="input">
+                       <label for="profils"> Type de profil </label><br/>
+                       <select name="profils" required>
+                            <option>     </option>
+                            <option> Client </option>
+                            <option> Operateur </option>
+                            <option> Administrateur </option>
+                       </select>
+                       </div>
+                       <div class="input">
+                       <label for="choixRecherche"> Type de recherche </label><br/>
+                       <select name="choixRecherche" size="1">
+                            <option>     </option>
+                            <option> Nom et Prenom </option>
+                            <option> Login </option>
+                       </select>
+                     </div>
+                     <input type="submit" value="rechercher"/>
+                 </form>
+            <div id="gestionCompte">
+                <?php    
+                   if(isset($_SESSION['action'])){
+                        if($_SESSION['action']=='afficherReservation'){
+                            include("Script_PHP/Administrateur/gestionReservation.php");  // OK
+                        }
+                        elseif($_SESSION['action']=='afficherAnimaux'){
+                            include("Script_PHP/Administrateur/gestionAnimaux.php");  // OK
+                        }
+                        elseif($_SESSION['action']=='reserver'){
+                            include("Script_PHP/Administrateur/formReservation.php");//OK
+                        }
+                        elseif($_SESSION['action']=='modifier'){
+                            include("Script_PHP/Administrateur/formModifier.php"); // modifie un client ou opérateur ou administrateur ou resa 
+                        }elseif($_SESSION['action']=='supprimer'){
+                            include("Script_PHP/Administrateur/traitementSupprimer.php");  //supprime un client ou opérateur ou admin ou résa ou animal
+                        }
+                    }
+                    else{
+                        include("Script_PHP/Administrateur/GestionComptes.php"); 
+                    }
+                ?>
             </div>
         </div>
+<?php
+        echo("                  <script>
+
+                                    var boutonsSupprimer = document.querySelectorAll('button[name]');
+
+                                    for(var i=0;i<boutonsSupprimer.length;i++){
+                                        boutonsSupprimer[i].addEventListener(\"click\", function(event) { ");
+                                            if(isset($_POST['profils'])){
+                                                if($_POST['profils']=='Administrateur'){
+                                                    echo("
+                                                    var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cet administrateur ? \");
+                                                    var idAdministrateur=event.target.getAttribute('name');
+                                                    if(confOk){
+                                                        document.location.replace('espacePrive.php?action=supprimer&amp;idAdministrateur='+idAdministrateur);
+                                                    }");
+                                                }
+                                                else{
+                                                    echo("
+                                                    var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
+                                                    var idClient=event.target.getAttribute('name');
+                                                     if(confOk){
+                                                        document.location.replace('espacePrive.php?action=supprimer&amp;idClient='+idClient);
+                                                    }");
+ 
+                                                }
+                                            }
+                                            elseif(isset($_SESSION['action'])){
+                                                if($_SESSION['action']=='afficherReservation'){
+                                                echo("
+                                                var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cette reservation ? \");
+                                                var idReservation=event.target.getAttribute('name');
+                                                if(confOk){
+                                                    document.location.replace('espacePrive.php?action=supprimer&amp;idReservation='+idReservation);
+                                                }");
+                                                }elseif($_SESSION['action']=='afficherAnimaux'){
+                                                echo("
+                                                var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cet animal ? (les réservations associées seront aussi supprimées)\");
+                                                var idAnimal=event.target.getAttribute('name');
+                                                if(confOk){
+                                                    document.location.replace('espacePrive.php?action=supprimer&amp;idAnimal='+idAnimal);
+                                                }");
+                                                }
+                                                else{
+                                                    echo("
+                                                    var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
+                                                    var idClient=event.target.getAttribute('name');
+                                                     if(confOk){
+                                                        document.location.replace('espacePrive.php?action=supprimer&amp;idClient='+idClient);
+                                                    }");
+                                                }
+
+                                            }
+                                            else{
+                                                echo("
+                                                var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
+                                                var idClient=event.target.getAttribute('name');
+                                                 if(confOk){
+                                                    document.location.replace('espacePrive.php?action=supprimer&amp;idClient='+idClient);
+                                                }");
+
+                                            }
+                                                
+                    echo("                  
+                                        });
+                                    }
+                                </script>");
+                                            
+?>
+        <?php include("Script_JS/actualiseForm.php") ?>
         <?php include("structure/footer.php") ?>
     </body>
 </html>
-
-

@@ -32,14 +32,8 @@ table
     border-collapse: collapse;
 	margin-bottom: 20px;
 
-}
 
-/*#invisible
-{
-	display:none;
 }
-*/
-
 
 
 
@@ -841,6 +835,29 @@ color: orange;
 
 /* 	------------------------ PAGE ADMINISTRATEUR ------------------------	*/
 
+#admin #gestionCompte 
+{
+	margin:auto;
+}
+
+#admin  table
+{
+    border-collapse: collapse;
+
+	margin-top: 1%;
+	margin-left:auto;
+	text-align: center;
+}
+
+
+#admin  td, th /* Mettre une bordure sur les td ET les th */
+{
+	padding:2px;
+	text-align: center;
+    border: 1px solid black;
+
+}
+
 #admin {
 display: flex;
 flex-direction: column;
@@ -855,12 +872,10 @@ font-variant: small-caps;
 font-size: 20px;
 }
 
-#admin #resadm {
-display: flex;
-flex-wrap: wrap;
+#admin #gestionCompte {
 border: 1px solid black;
 overflow: auto;
-width: 75%;
+width: 100%	;
 margin: auto;
 margin-bottom: 50px;
 height: 425px;
@@ -868,18 +883,12 @@ background-color: rgba(230,230,230,0.4);
 align-items: center;
 }
 
-#admin #resadm .res:nth-child(1) {
-width: 100%;
+#admin form {
+	display: flex;
+    justify-content: space-around;
+    margin: 10px;
 }
 
-#admin #resadm .res:nth-child(2) {
-margin: 1%;
-}
-
-#admin #resadm .res:nth-child(3) {
-margin-right: 1%;
-width: 60%;
-}
 
 #admin a img {
 float: right;
@@ -895,20 +904,7 @@ margin: auto;
 height: 425px;
 background-color: rgba(230,230,230,0.4);
 align-items: center;
+justify-content: center;
 }
-
-#admin #cliadm .cli:nth-child(1) {
-width: 100%;
-}
-
-#admin #cliadm .cli:nth-child(2) {
-margin: 1%;
-}
-
-#admin #cliadm .cli:nth-child(3) {
-margin-right: 1%;
-width: 55%;
-}
-
 
 

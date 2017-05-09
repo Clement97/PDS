@@ -26,7 +26,7 @@
 ?>
 
             <h2>Réservation </h2>
-                <form method="post" action="client.php">
+                <form method="post" action="espacePrive.php">
                     <fieldset>
                         <div id="input">
                         <label for="date" class="pt"> Date d'entrée de votre animal:  </label></br>
@@ -104,7 +104,7 @@
                                         divInsert.appendChild(div);
 
                                     </script>");
-                        ?>
+                    ?>
 
                 </form>
 

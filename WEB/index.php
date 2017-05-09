@@ -1,4 +1,12 @@
+<?php 
 
+session_start();
+
+if(isset($_GET['offline'])){
+    unset($_SESSION['id']);
+}
+
+?>
 
 <!DOCTYPE html>
 <html>

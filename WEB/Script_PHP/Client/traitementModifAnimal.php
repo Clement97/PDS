@@ -22,8 +22,6 @@
 						dateUpload=:dateUpload
 					where idAnimal=:idAnimal');
 
-
-
 				$update->execute(array(
 					'type'=>$_POST['ani'],
 					'nom'=>$_POST['nom'],
@@ -37,7 +35,7 @@
 				echo("<script>document.location.replace('espacePrive.php?init=1');</script>");
 			}else echo('\n Le fichier n\'a pas une taille adaptée');
 
-		}else echo("test1");
+		}
 
-	}else echo("test2");
+	}
 ?>

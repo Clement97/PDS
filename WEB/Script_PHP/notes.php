@@ -120,6 +120,72 @@ associées par exemple, ...)
 
 
 
+              <div class="res">
+                    <ul>
+                        <li> MARTI Enzo - 15/03/17 au 17/03/17 - chat - isolé - Ulahup - 90€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                        <li> ALDOBRANDI Clément - 18/03/17 au 24/03/17 - chien - isolé - Jul - 280€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                        <li> MARTI Enzo - 15/03/17 au 17/03/17 - chat - isolé - Ulahup - 90€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                        <li> ALDOBRANDI Clément - 18/03/17 au 24/03/17 - chien - isolé - Jul - 280€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                        <li> MARTI Enzo - 15/03/17 au 17/03/17 - chat - isolé - Ulahup - 90€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                        <li> ALDOBRANDI Clément - 18/03/17 au 24/03/17 - chien - isolé - Jul - 280€ <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                    </ul>
+                </div>
+            </div>
+            <div id="cliadm">
+                <div class="cli">
+                    <h2> Consultation et suppression des clients </h2>
+                </div>
+                <div class="cli">
+                    <form method="post" action="">
+                        <fieldset>
+                        <label for="nom"> Nom </label></br>
+                        <input type="text" name="nom" id="nom" placeholder="John" size="15" required/></br></br>
+                        <label for="prenom"> Prénom </label></br>
+                        <input type="text" name="prenom" id="prenom" placeholder="Doe" size="15" required/></br></br>
+                        <label for="tel"> Téléphone </label></br>
+                        <input type="text" name="tel" id="tel" placeholder="0607080900" size="15" required/></br></br>
+                        <label for="adresse"> Adresse </label></br>
+                        <input type="text" name="adresse" id="adresse" placeholder="12 avenue des Lacs" size="15" required/></br></br>
+                        <input id="center" type="submit" value="Envoyer"/>
+                    </form>
+                </div>
+                <div class="cli">
+                    <ul>
+                        <li> MARTI - Enzo - 0611111111 - 24 avenue du oui <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                        <li> MARTI - Enzo - 0611111111 - 24 avenue du oui <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                        <li> MARTI - Enzo - 0611111111 - 24 avenue du oui <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                        <li> MARTI - Enzo - 0611111111 - 24 avenue du oui <a href=""><img src="images/client/croix.png" alt="croix" height="15" weight="15"/></a> </li>
+                        <br/>
+                    </ul>
+                </div>
+
+
+
+
+                                        <div class="input">
+                        <label for="prenom"> Prenom </label></br>
+                        <input type="text" name="prenom" id="prenom" placeholder="John" size="15" required/></br></br>
+                        </div>
+
+                        <div class="input">
+                        <label for="nom"> Nom </label></br>
+                        <input type="text" name="nom" id="nom" placeholder="Snow" size="15" required/></br></br>
+                        </div>
+
+                        <div class="input">
+                        <label for="login"> login </label></br>
+                        <input type="text" name="login" id="login" placeholder="login" size="15" required/></br></br>
+                        </div>                                    
+
 
 
 
