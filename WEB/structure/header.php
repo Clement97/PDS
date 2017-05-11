@@ -30,11 +30,14 @@
 					<ul>
 						<?php
 							if(isset($_SESSION['id'])){
-								echo("	<li><a href=\"../espacePrive.php?init=1\"> Page de gestion </a></li>
-										<li><a href=\"../index.php?offline=1\"> Deconnexion </a></li> ");
+								echo("	<li><a href=\"../espacePrive.php?init=1\"> page de gestion </a></li>");
+								if($_SESSION['type']=='Administrateur'){
+									echo("<li><a href=\"../espacePrive.php?creation=1\"> création de compte </a></li>");
+								}
+								echo("<li><a href=\"../index.php?offline=1\"> deconnexion </a></li> ");
 							}
 							else{
-								echo("<li><a href=\"../connexion.php\"> Connexion </a></li>");
+								echo("<li><a href=\"../connexion.php\"> connexion </a></li>");
 							}
 						?>
 					</ul>

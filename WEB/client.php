@@ -93,9 +93,9 @@ if(isset($_GET['init'])){
 
             <div class="ptclt">
                 <h2> Laisser un commentaire au gérant </h2>
-                <form method="post" action="">
+                <form method="post" action="mailto:enzomarti94@gmail.com">
                     <textarea name="comment"/> </textarea><br/>
-                    <input type="submit" value="envoyer"/>
+                    <input type="submit" value="envoyer" onclick="alert('message envoyé');"/>
                 </form>
             </div>
         </div>

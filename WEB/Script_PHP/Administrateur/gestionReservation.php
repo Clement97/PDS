@@ -38,7 +38,7 @@
                     <td>".$donnees['dateFin']."</td>
                     <td>".$donnees['montant']."</td>
                     <td>".gestion($donnees['isolé'])."</td>
-                    <td><a href=\"espacePrive.php?action=modifier&amp;idReservation=".$donnees['idReservation']."\"><button type=\"button\" >M</button> </td></td>
+                    <td><a href=\"espacePrive.php?action=modifier&amp;init=1&amp;idReservation=".$donnees['idReservation']."\"><button type=\"button\" >M</button> </td></td>
                     <td><button type=\"button\" name=".$donnees['idReservation'].">X</button> </td>
                 </tr>
         ");
@@ -57,7 +57,7 @@
                     <td>".$donnees['dateFin']."</td>
                     <td>".$donnees['montant']."</td>
                     <td>".gestion($donnees['isolé'])."</td>
-                    <td><a href=\"espacePrive.php?action=modifier&amp;idReservation=".$donnees['idReservation']."\"><button type=\"button\" >M</button> </td></td>
+                    <td><a href=\"espacePrive.php?action=modifier&amp;init=1&amp;idReservation=".$donnees['idReservation']."\"><button type=\"button\" >M</button> </td></td>
                     <td><button type=\"button\" name=".$donnees['idReservation'].">X</button> </td>
                 </tr>    "); 
     }
@@ -72,7 +72,7 @@
                                                 var confOk=confirm("Êtes-vous vraiment sûr de supprimer cette reservation ?");
                                                 var idReservation=event.target.getAttribute('name');
                                                 if(confOk){
-                                                    document.location.replace('espacePrive.php?action=supprimer&idReservation='+idReservation);
+                                                    document.location.replace('espacePrive.php?action=supprimer&init=1&idReservation='+idReservation);
                                                 }                                        
                                         });
                                     }

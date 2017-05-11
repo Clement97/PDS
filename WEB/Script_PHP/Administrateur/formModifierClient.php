@@ -1,24 +1,6 @@
-<?php 
-session_start();
-
-?>
-
-
-
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        <link rel="stylesheet" href="style.css"/>
-        <title> comChien&Chat </title>
-
-
-    </head>
-    <body>
-        <?php include("structure/header.php") ?>
-        <div id="inscription">
+         <div id="inscription">
             <div id="titre">
-                <h1> Bienvenue sur le page d'inscription </h1>
+                <h1> Modification client </h1>
             </div>
             <div id="contenu">
                 <div class="insbloc">
@@ -30,8 +12,6 @@ session_start();
                 </div>
                 <div class="insbloc">
                     <form method="post" action="inscription.php" onsubmit="return (nomOK && prenomOK && telOK && adresseOK && mailOK && confMailOK && passwordOK && confPasswordOK);">
-                        <fieldset>
-                        <legend> Formulaire pour s'inscrire </legend>
                         <table>
                             <tr>
                                 <td>
@@ -81,12 +61,5 @@ session_start();
                 </div>
             </div>
         </div>
-        <?php include("Script_PHP/traitementInscription.php") ?>
-        <?php include("structure/footer.php") ?>
+        <?php include("Script_PHP/Client/traitementModificationClient.php") ?>
         <script type="text/javascript" src="Script_JS/verifFormInscription.js"></script>
-        <script type="text/javascript" src="Script_JS/remplirAuto.js">  </script>
-
- </body>
-</html>
-
-

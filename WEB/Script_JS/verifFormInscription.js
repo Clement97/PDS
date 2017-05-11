@@ -109,7 +109,7 @@ function verifPassword(){
 
 function verifConfPassword(){
   champConfPassword.addEventListener("blur", function(event) {
-    if(event.target.value.length==0||event.target.value!=champPassword.value){
+    if(event.target.value!=champPassword.value){
         surligne(event,true);
         return false;
     }
@@ -119,7 +119,6 @@ function verifConfPassword(){
     }
   });
 } 
-
 
 
 
@@ -134,14 +133,17 @@ function verifConfPassword(){
     var champConfPassword=document.getElementById('confmdp');
 
 
-    verifNom();
-    verifPrenom();
-    verifTel();
-    verifAdresse();
-    verifMail();
-    verifConfMail();
-    verifPassword();
-    verifConfPassword();
+var nomOK= verifNom();
+var prenomOK= verifPrenom();
+var telOK= verifTel();
+var adresseOK= verifAdresse();
+var mailOK= verifMail();
+var confMailOK=verifConfMail();
+var passwordOK=verifPassword();
+var confPasswordOK =verifConfPassword();
+
+
+
 
 
 

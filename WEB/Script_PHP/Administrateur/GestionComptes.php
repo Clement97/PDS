@@ -53,7 +53,7 @@
 							<td>".$donnees['login']."</td>
 							<td>".$donnees['nom']."</td>
 							<td>".$donnees['prenom']."</td>
-							<td><a href=\"espacePrive.php?action=modifier&amp;".$idRequete."=".$id."\"><button type=\"button\">Modifier</button> </td>
+							<td><a href=\"espacePrive.php?action=modifier&amp;".$idRequete."=".$id."&amp;init=1\"><button type=\"button\">Modifier</button> </td>
 							<td><button type=\"button\" name=".$id.">Supprimer</button> </td>
 						</tr>
 					");		
@@ -75,7 +75,7 @@
 							<td>".$donnees['login']."</td>
 							<td>".$donnees['nom']."</td>
 							<td>".$donnees['prenom']."</td>
-							<td><a href=\"espacePrive.php?action=modifier&amp;".$idRequete."=".$id."\"><button type=\"button\">Modifier</button> </td>
+							<td><a href=\"espacePrive.php?action=modifier&amp;".$idRequete."=".$id."&amp;init=1\"><button type=\"button\">Modifier</button> </td>
 							<td><button type=\"button\" name=".$id.">Supprimer</button> </td>
 						</tr>");
 		}
@@ -154,9 +154,9 @@
 						<td>".$donnees['prenom']."</td>
 						<td>".$donnees['tel']."</td>
 						<td>".$donnees['adresse']."</td>
-						<td><a href=\"espacePrive.php?action=afficherReservation&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">afficher Reservations</button> </td>
-						<td><a href=\"espacePrive.php?action=afficherAnimaux&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">afficher Animaux</button> </td>
-						<td><a href=\"espacePrive.php?action=modifier&amp;idClient".$donnees['idClient']."\"><button type=\"button\">Modifier</button> </td>
+						<td><a href=\"espacePrive.php?action=afficherReservation&amp;init=1&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">afficher Reservations</button> </td>
+						<td><a href=\"espacePrive.php?action=afficherAnimaux&amp;init=1&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">afficher Animaux</button> </td>
+						<td><a href=\"espacePrive.php?action=modifier&amp;init=1&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">Modifier</button> </td>
 						<td><button type=\"button\" name=".$donnees['idClient'].">Supprimer</button> </td>
 					</tr>
 				");		
@@ -173,9 +173,9 @@
 						<td>".$donnees['prenom']."</td>
 						<td>".$donnees['tel']."</td>
 						<td>".$donnees['adresse']."</td>
-						<td><a href=\"espacePrive.php?action=afficherReservation&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">afficher Reservations</button> </td>
-						<td><a href=\"espacePrive.php?action=afficherAnimaux&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">afficher Animaux</button> </td>
-						<td><a href=\"espacePrive.php?action=modifier&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">Modifier</button> </td>
+						<td><a href=\"espacePrive.php?action=afficherReservation&amp;init=1&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">afficher Reservations</button> </td>
+						<td><a href=\"espacePrive.php?action=afficherAnimaux&amp;init=1&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">afficher Animaux</button> </td>
+						<td><a href=\"espacePrive.php?action=modifier&amp;init=1&amp;idClient=".$donnees['idClient']."\"><button type=\"button\">Modifier</button> </td>
 						<td><button type=\"button\" name=".$donnees['idClient'].">Supprimer</button> </td>
 					</tr>
 					");
@@ -203,14 +203,14 @@
                                                     var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cet administrateur ? \");
                                                     var idAdministrateur=event.target.getAttribute('name');
                                                     if(confOk){
-                                                        document.location.replace('espacePrive.php?action=supprimer&idAdministrateur='+idAdministrateur);
+                                                        document.location.replace('espacePrive.php?action=supprimer&init=1&idAdministrateur='+idAdministrateur);
                                                     }");
                                                 }elseif($_POST['profils']=='Operateur'){
                                                     echo("
                                                     var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cet operateur ? \");
                                                     var idOperateur=event.target.getAttribute('name');
                                                     if(confOk){
-                                                        document.location.replace('espacePrive.php?action=supprimer&idOperateur='+idOperateur);
+                                                        document.location.replace('espacePrive.php?action=supprimer&init=1&idOperateur='+idOperateur);
                                                     }");
                                                 }
                                                 else{
@@ -218,7 +218,7 @@
                                                     var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
                                                     var idClient=event.target.getAttribute('name');
                                                      if(confOk){
-                                                        document.location.replace('espacePrive.php?action=supprimer&idClient='+idClient);
+                                                        document.location.replace('espacePrive.php?action=supprimer&init=1&idClient='+idClient);
                                                     }");
  
                                                 }
@@ -228,7 +228,7 @@
                                                 var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
                                                 var idClient=event.target.getAttribute('name');
                                                  if(confOk){
-                                                    document.location.replace('espacePrive.php?action=supprimer&idClient='+idClient);
+                                                    document.location.replace('espacePrive.php?action=supprimer&init=1&idClient='+idClient);
                                                 }");
 
                                             }

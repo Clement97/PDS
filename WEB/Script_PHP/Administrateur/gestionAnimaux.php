@@ -56,7 +56,7 @@
 					<td>".estVide($donnees['identification'])."</td>
 					<td>".est1($donnees['carnetVaccinationValide'])."</td>
 					<td>".$donnees['dateUpload']."</td>
-					<td><a href=\"espacePrive.php?action=reserver&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td></td>
+					<td><a href=\"espacePrive.php?action=reserver&amp;init=1&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td></td>
 					<td><button type=\"button\" name=".$donnees['idAnimal'].">X</button> </td>
 				</tr>
 			");
@@ -74,7 +74,7 @@
 					<td>".estVide($donnees['identification'])."</td>
 					<td>".est1($donnees['carnetVaccinationValide'])."</td>
 					<td>".$donnees['dateUpload']."</td>
-					<td><a href=\"espacePrive.php?action=reserver&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td>
+					<td><a href=\"espacePrive.php?action=reserver&amp;init=1&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td>
 					<td><button type=\"button\" name=".$donnees['idAnimal'].">X</button> </td>
 				</tr>
 	");	
@@ -89,17 +89,16 @@
 
                                     for(var i=0;i<boutonsSupprimer.length;i++){
                                         boutonsSupprimer[i].addEventListener("click", function(event) {
-                                            var confOk=confirm("Êtes-vous vraiment sûr de supprimer cet animal ? (toutes les reservations associez seront annulées)");
+                                            var confOk=confirm("Êtes-vous vraiment sûr de supprimer cet animal ? (toutes les reservations associées seront annulées)");
                                             var idAnimal =event.target.getAttribute('name');
                                             if(confOk){
-                                                document.location.replace('espacePrive.php?action=supprimer&idAnimal='+idAnimal);
+                                                document.location.replace('espacePrive.php?action=supprimer&init=1&idAnimal='+idAnimal);
                                             }
                                         });
                                     }
                                 </script>
 
 <?php
-
 
 	unset($_SESSION['action']);
 ?>
