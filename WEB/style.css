@@ -32,13 +32,12 @@ table
     border-collapse: collapse;
 	margin-bottom: 20px;
 
-
 }
 
 
 
-
 /* Clément*/
+
 
 /* 	------------------------ ENTETE ------------------------	*/
 	
@@ -893,18 +892,4 @@ align-items: center;
 #admin a img {
 float: right;
 }
-
-#admin #cliadm {
-display: flex;
-flex-wrap: wrap;
-border: 1px solid black;
-overflow: auto;
-width: 75%;
-margin: auto;
-height: 425px;
-background-color: rgba(230,230,230,0.4);
-align-items: center;
-justify-content: center;
-}
-
 

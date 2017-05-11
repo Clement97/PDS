@@ -22,8 +22,8 @@
 
 	    $requete=$bdd->prepare('delete from Animal where idAnimal=?');
 	    $requete->execute(array($_SESSION['idAnimal']));
-	    $requete=$bdd->prepare('update Reservation set valide=0 where idAnimal=?');
-	    $requete->execute(array($_SESSION['idAnimal']));
+	    // $requete=$bdd->prepare('update Reservation set valide=0 where idAnimal=?');
+	    // $requete->execute(array($_SESSION['idAnimal']));
     }
 
 

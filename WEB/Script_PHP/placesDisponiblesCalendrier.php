@@ -12,7 +12,41 @@
 
 		$nombre = $requete->fetch();
 		
-			echo ('<p></br> Au <strong>' . $_POST['dateRecherche'] . '</strong> il y a <strong>' . $nombre[0] . '</strong> place(s) occupées.</p>');
+		if ($_POST['animal'] == 'chien' && $_POST['box'] == 0) {
+		$i = 30 - $nombre[0];
+			echo ('<p></br> Au <strong>' . $_POST['dateRecherche'] . '</strong> il y a <strong>' . $i . '</strong> place(s) libre(s).</p>');
+		}
+		
+		
+		if ($_POST['animal'] == 'chien' && $_POST['box'] == 1) {
+		$i = 10 - $nombre[0];
+			echo ('<p></br> Au <strong>' . $_POST['dateRecherche'] . '</strong> il y a <strong>' . $i . '</strong> place(s) libre(s).</p>');
+		}
+		
+				
+		if ($_POST['animal'] == 'chat' && $_POST['box'] == 0) {
+		$i = 42 - $nombre[0];
+			echo ('<p></br> Au <strong>' . $_POST['dateRecherche'] . '</strong> il y a <strong>' . $i . '</strong> place(s) libre(s).</p>');
+		}
+		
+				
+		if ($_POST['animal'] == 'chat' && $_POST['box'] == 1) {
+		$i = 10 - $nombre[0];
+			echo ('<p></br> Au <strong>' . $_POST['dateRecherche'] . '</strong> il y a <strong>' . $i . '</strong> place(s) libre(s).</p>');
+		}
+		
+				
+		if ($_POST['animal'] == 'rongeur' && $_POST['box'] == 0) {
+		$i = 18 - $nombre[0];
+			echo ('<p></br> Au <strong>' . $_POST['dateRecherche'] . '</strong> il y a <strong>' . $i . '</strong> place(s) libre(s).</p>');
+		}
+		
+		
+		if ($_POST['animal'] == 'rongeur' && $_POST['box'] == 1) {
+		$i = 5 - $nombre[0];
+			echo ('<p></br> Au <strong>' . $_POST['dateRecherche'] . '</strong> il y a <strong>' . $i . '</strong> place(s) libre(s).</p>');
+		}
+		
 		
 }
 ?>
