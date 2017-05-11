@@ -10,32 +10,36 @@ session_start();
 		include("Script_PHP/BDDAccess.php");
 
 		if($_SESSION['type']=='Client'){
-			$requeteID=$bdd->prepare('select idClient from Client where email=?');
-			$requeteID->execute(array($_SESSION['login']));
-			if($donnees=$requeteID->fetch()){
-				$_SESSION['id']=$donnees['idClient'];
+				$requeteID=$bdd->prepare('select idClient from Client where email=?');
+				$requeteID->execute(array($_SESSION['login']));
+				if($donnees=$requeteID->fetch()){
+					$_SESSION['id']=$donnees['idClient'];
+				include("client.php");
 			}
-			include("client.php");
-
 		}
 
 		if($_SESSION['type']=='Operateur'){
-			$requeteID=$bdd->prepare('select idOperateur from Operateur where login=?');
-			$requeteID->execute(array($_SESSION['login']));
-			if($donnees=$requeteID->fetch()){
-				$_SESSION['id']=$donnees['idOperateur'];
+			if(!(isset($_SESSION['id']))){
+				$requeteID=$bdd->prepare('select idOperateur from Operateur where login=?');
+				$requeteID->execute(array($_SESSION['login']));
+				if($donnees=$requeteID->fetch()){
+					$_SESSION['id']=$donnees['idOperateur'];
+				}
+				include("operateur.php");
 			}
-			include("operateur.php");
 		}
 
 		if($_SESSION['type']=='Administrateur'){
-			$requeteID=$bdd->prepare('select idAdministrateur from Administrateur where login=?');
-			$requeteID->execute(array($_SESSION['login']));
-			if($donnees=$requeteID->fetch()){
-				$_SESSION['id']=$donnees['idAdministrateur'];
+			if(!(isset($_SESSION['id']))){
+				$requeteID=$bdd->prepare('select idAdministrateur from Administrateur where login=?');
+				$requeteID->execute(array($_SESSION['login']));
+				if($donnees=$requeteID->fetch()){
+					$_SESSION['id']=$donnees['idAdministrateur'];
+				}
 			}
 			include("administrateur.php");
 		}
+		// j'ai modifié ici l'admin
 
 
 

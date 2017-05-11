@@ -1,11 +1,15 @@
+<!-- <?php
+session_start();
+?> -->
+
 <?php
+
 
     if(isset($_GET['action']))
         $_SESSION['action']=$_GET['action'];
 
-    if(isset($_GET['idClient'])){
+    if(isset($_GET['idClient']))
         $_SESSION['idClient']=$_GET['idClient'];
-    }
 
     if(isset($_GET['idOperateur']))
         $_SESSION['idOperateur']=$_GET['idOperateur'];
@@ -29,6 +33,7 @@ if(isset($_GET['init'])){
     unset($_SESSION['idAnimal']);
 
 }
+
 
 
 
@@ -84,7 +89,9 @@ if(isset($_GET['init'])){
                         elseif($_SESSION['action']=='modifier'){
                             include("Script_PHP/Administrateur/formModifier.php"); // modifie un client ou opérateur ou administrateur ou resa 
                         }elseif($_SESSION['action']=='supprimer'){
-                            include("Script_PHP/Administrateur/traitementSupprimer.php");  //supprime un client ou opérateur ou admin ou résa ou animal
+                            include("Script_PHP/Administrateur/traitementSupprimer.php");
+                            include("Script_PHP/Administrateur/GestionComptes.php"); 
+                              //supprime un client ou opérateur ou admin ou résa ou animal
                         }
                     }
                     else{
@@ -93,74 +100,7 @@ if(isset($_GET['init'])){
                 ?>
             </div>
         </div>
-<?php
-        echo("                  <script>
 
-                                    var boutonsSupprimer = document.querySelectorAll('button[name]');
-
-                                    for(var i=0;i<boutonsSupprimer.length;i++){
-                                        boutonsSupprimer[i].addEventListener(\"click\", function(event) { ");
-                                            if(isset($_POST['profils'])){
-                                                if($_POST['profils']=='Administrateur'){
-                                                    echo("
-                                                    var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cet administrateur ? \");
-                                                    var idAdministrateur=event.target.getAttribute('name');
-                                                    if(confOk){
-                                                        document.location.replace('espacePrive.php?action=supprimer&amp;idAdministrateur='+idAdministrateur);
-                                                    }");
-                                                }
-                                                else{
-                                                    echo("
-                                                    var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
-                                                    var idClient=event.target.getAttribute('name');
-                                                     if(confOk){
-                                                        document.location.replace('espacePrive.php?action=supprimer&amp;idClient='+idClient);
-                                                    }");
- 
-                                                }
-                                            }
-                                            elseif(isset($_SESSION['action'])){
-                                                if($_SESSION['action']=='afficherReservation'){
-                                                echo("
-                                                var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cette reservation ? \");
-                                                var idReservation=event.target.getAttribute('name');
-                                                if(confOk){
-                                                    document.location.replace('espacePrive.php?action=supprimer&amp;idReservation='+idReservation);
-                                                }");
-                                                }elseif($_SESSION['action']=='afficherAnimaux'){
-                                                echo("
-                                                var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cet animal ? (les réservations associées seront aussi supprimées)\");
-                                                var idAnimal=event.target.getAttribute('name');
-                                                if(confOk){
-                                                    document.location.replace('espacePrive.php?action=supprimer&amp;idAnimal='+idAnimal);
-                                                }");
-                                                }
-                                                else{
-                                                    echo("
-                                                    var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
-                                                    var idClient=event.target.getAttribute('name');
-                                                     if(confOk){
-                                                        document.location.replace('espacePrive.php?action=supprimer&amp;idClient='+idClient);
-                                                    }");
-                                                }
-
-                                            }
-                                            else{
-                                                echo("
-                                                var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
-                                                var idClient=event.target.getAttribute('name');
-                                                 if(confOk){
-                                                    document.location.replace('espacePrive.php?action=supprimer&amp;idClient='+idClient);
-                                                }");
-
-                                            }
-                                                
-                    echo("                  
-                                        });
-                                    }
-                                </script>");
-                                            
-?>
         <?php include("Script_JS/actualiseForm.php") ?>
         <?php include("structure/footer.php") ?>
     </body>

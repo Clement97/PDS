@@ -62,11 +62,12 @@
 			");
 	}
 	else{
-    	echo("<script> alert('Ce client n\'a pas d'animal actuellement'); </script>");
-		echo("<script>document.location.replace('espacePrive.php?init=1');</script>");
+    	echo("<script> alert(\"Ce client na pas d\'animal actuellement\"); </script>");
+        include("Script_PHP/Administrateur/GestionComptes.php"); 
 	}
 	while($donnees=$requete -> fetch()){
 	echo("
+
 				<tr>	
 					<td>".$donnees['nom']."</td>
 					<td>".$donnees['type']."</td>
@@ -75,14 +76,32 @@
 					<td>".$donnees['dateUpload']."</td>
 					<td><a href=\"espacePrive.php?action=reserver&amp;idAnimal=".$donnees['idAnimal']."\"><button type=\"button\" >R</button> </td>
 					<td><button type=\"button\" name=".$donnees['idAnimal'].">X</button> </td>
-
-
-
 				</tr>
 	");	
 	}
 	echo("	</table>");
 
+?>
+
+                                <script>
+
+                                    var boutonsSupprimer = document.querySelectorAll('button[name]');
+
+                                    for(var i=0;i<boutonsSupprimer.length;i++){
+                                        boutonsSupprimer[i].addEventListener("click", function(event) {
+                                            var confOk=confirm("Êtes-vous vraiment sûr de supprimer cet animal ? (toutes les reservations associez seront annulées)");
+                                            var idAnimal =event.target.getAttribute('name');
+                                            if(confOk){
+                                                document.location.replace('espacePrive.php?action=supprimer&idAnimal='+idAnimal);
+                                            }
+                                        });
+                                    }
+                                </script>
+
+<?php
+
+
+	unset($_SESSION['action']);
 ?>
 
 

@@ -45,7 +45,7 @@
     }
     else{
     	echo("<script> alert('Ce client n\'a pas de réservations actuellement'); </script>");
-		echo("<script>document.location.replace('espacePrive.php?init=1');</script>");
+        include("Script_PHP/Administrateur/GestionComptes.php"); 
     }
     while($donnees=$requete -> fetch()){
     echo("
@@ -62,5 +62,24 @@
                 </tr>    "); 
     }
     echo("  </table>"); 
+?>
+                                <script>
+
+                                    var boutonsSupprimer = document.querySelectorAll('button[name]');
+
+                                    for(var i=0;i<boutonsSupprimer.length;i++){
+                                        boutonsSupprimer[i].addEventListener("click", function(event) {
+                                                var confOk=confirm("Êtes-vous vraiment sûr de supprimer cette reservation ?");
+                                                var idReservation=event.target.getAttribute('name');
+                                                if(confOk){
+                                                    document.location.replace('espacePrive.php?action=supprimer&idReservation='+idReservation);
+                                                }                                        
+                                        });
+                                    }
+                                    
+                                </script>
+
+<?php
+    unset($_SESSION['action']);
 
 ?>

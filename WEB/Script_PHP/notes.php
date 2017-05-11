@@ -1,10 +1,8 @@
 echo "<script type='text/javascript'>document.location.replace('page.php');</script>";
 <meta http-equiv="refresh" content="1;url=http://www.dvp.com"/>
 
-controler entrées :
--traitementConnexion
--
-
+voir pq on ne peut que supprimer un client sur 2 (rapport avec init=1)
+puis remplacer &amp; par & en js pas besoin du amp;
 
 Admin:
 

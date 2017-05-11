@@ -59,7 +59,7 @@
 					");		
 		}
 		else{
-			echo("<h3 style='text-align:center'>Aucun compte".$profil."pour le moment</h3>");
+	    	echo("<script> alert('Aucun compte ".strtolower($profil) ." pour le moment'); </script>");
 		}	
 		while($donnees=$requete -> fetch()){
 			$id;
@@ -111,7 +111,7 @@
 		afficheRequete($requete,$profil);
 	}
 
-	if(!isset($_POST['profils'])||$_POST['profils']=='Client'){
+	if(!isset($_POST['profils'])||empty($_POST['profils'])||$_POST['profils']=='Client'){
 		include("Script_PHP/BDDAccess.php");
 		$requete;
 		if(empty($_POST['choixRecherche'])){
@@ -162,7 +162,7 @@
 				");		
 		}
 		else{
-			echo("<h3 style='text-align:center'>Aucun compte ".$profil." pour le moment</h3>");
+	    	echo("<h3 style='text-align:center'> Aucun compte client pour le moment </h3>");
 		}	
 		while($donnees=$requete -> fetch()){
 			echo("
@@ -191,5 +191,52 @@
 		traitementOpeAdmin($profil);
 	}
 
+        echo("                  <script>
+
+                                    var boutonsSupprimer = document.querySelectorAll('button[name]');
+
+                                    for(var i=0;i<boutonsSupprimer.length;i++){
+                                        boutonsSupprimer[i].addEventListener(\"click\", function(event) { ");
+                                            if(isset($_POST['profils'])){
+                                                if($_POST['profils']=='Administrateur'){
+                                                    echo("
+                                                    var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cet administrateur ? \");
+                                                    var idAdministrateur=event.target.getAttribute('name');
+                                                    if(confOk){
+                                                        document.location.replace('espacePrive.php?action=supprimer&idAdministrateur='+idAdministrateur);
+                                                    }");
+                                                }elseif($_POST['profils']=='Operateur'){
+                                                    echo("
+                                                    var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer cet operateur ? \");
+                                                    var idOperateur=event.target.getAttribute('name');
+                                                    if(confOk){
+                                                        document.location.replace('espacePrive.php?action=supprimer&idOperateur='+idOperateur);
+                                                    }");
+                                                }
+                                                else{
+                                                    echo("
+                                                    var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
+                                                    var idClient=event.target.getAttribute('name');
+                                                     if(confOk){
+                                                        document.location.replace('espacePrive.php?action=supprimer&idClient='+idClient);
+                                                    }");
+ 
+                                                }
+                                            }
+                                            else{
+                                                echo("
+                                                var confOk=confirm(\"Êtes-vous vraiment sûr de supprimer ce client ? (toutes les reservations et animaux associés seront aussi supprimées)\");
+                                                var idClient=event.target.getAttribute('name');
+                                                 if(confOk){
+                                                    document.location.replace('espacePrive.php?action=supprimer&idClient='+idClient);
+                                                }");
+
+                                            }
+                                                
+                    echo("                  
+                                        });
+                                    }
+                                </script>");
+                                            
 
 ?>

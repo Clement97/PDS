@@ -50,7 +50,7 @@
                                     include("Script_PHP/BDDAccess.php");
                                     if(reservationEffectuee($appelProcedure)==1){
                                         echo("<script> alert('La reservation a bien été effectuée')</script>");
-                                        echo("<meta http-equiv=\"refresh\" content=\"1;url=espacePrive.php?init=1\"/>");
+                                        include("Script_PHP/Administrateur/GestionComptes.php"); 
                                     }
                                     else{
                                         $requete=$bdd->query($appelProcedure);
