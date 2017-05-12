@@ -63,7 +63,7 @@
 	}
 	else{
     	echo("<script> alert(\"Ce client na pas d\'animal actuellement\"); </script>");
-        include("Script_PHP/Administrateur/GestionComptes.php"); 
+        include("Script_PHP/Operateur/GestionClient.php"); 
 	}
 	while($donnees=$requete -> fetch()){
 	echo("
@@ -80,6 +80,7 @@
 	");	
 	}
 	echo("	</table>");
+	unset($_SESSION['idClient']);
 
 ?>
 
@@ -92,7 +93,7 @@
                                             var confOk=confirm("Êtes-vous vraiment sûr de supprimer cet animal ? (toutes les reservations associez seront annulées)");
                                             var idAnimal =event.target.getAttribute('name');
                                             if(confOk){
-                                                document.location.replace('espacePrive.php?action=supprimer&idAnimal='+idAnimal);
+                                                document.location.replace('espacePrive.php?action=supprimer&init=1&idAnimal='+idAnimal);
                                             }
                                         });
                                     }

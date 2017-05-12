@@ -37,7 +37,8 @@
                 		<input type="submit" value="Reserver" formenctype=""/></br></br>
 
   						<?php 
-                			if(isset($_POST['date'])&&isset($_POST['duree'])&&isset($_POST['box'])){
+                        if(isset($_SESSION['idAnimal'])){
+                            if(isset($_POST['date'])&&isset($_POST['duree'])&&isset($_POST['box'])){
                                 if (! (empty($_POST['date'])||empty($_POST['duree'])||empty($_POST['box']))){
 
                                     $appelProcedure='CALL P_Reservation('.$_SESSION['idAnimal'].',\''.$_POST['date'].'\','.$_POST['duree'].',0,'.convertBox($_POST['box']).',';
@@ -50,7 +51,7 @@
                                     include("Script_PHP/BDDAccess.php");
                                     if(reservationEffectuee($appelProcedure)==1){
                                         echo("<script> alert('La reservation a bien été effectuée')</script>");
-                                        include("Script_PHP/Administrateur/GestionComptes.php"); 
+                                        echo("<meta http-equiv=\"refresh\" content=\"1;url=espacePrive.php?init=1\"/>");
                                     }
                                     else{
                                         $requete=$bdd->query($appelProcedure);
@@ -59,13 +60,22 @@
                                         }
                                     }
                                 }
-                			} 
+                            } 
                             elseif(!empty($_POST['profils'])){
                                 echo("<meta http-equiv=\"refresh\" content=\"1;url=espacePrive.php?init=1\"/>");
                             }
+
+
+
+                        }
+                        elseif(!empty($_POST['profils'])){
+                                echo("<meta http-equiv=\"refresh\" content=\"1;url=espacePrive.php?init=1\"/>");
+                        }
+
                         ?>
                 	</fieldset>
                     <?php
+                    if(isset($_SESSION['idAnimal'])){
                         include("Script_PHP/BDDAccess.php");
                         $requete=$bdd->query('select type from Animal where idAnimal='.$_SESSION['idAnimal']);
                         if($donnees=$requete->fetch())
@@ -100,6 +110,7 @@
                                         divInsert.appendChild(div);
 
                                     </script>");
+                        }
                     ?>
 
                 </form>

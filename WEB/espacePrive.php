@@ -19,14 +19,12 @@ session_start();
 		}
 
 		if($_SESSION['type']=='Operateur'){
-			if(!(isset($_SESSION['id']))){
 				$requeteID=$bdd->prepare('select idOperateur from Operateur where login=?');
 				$requeteID->execute(array($_SESSION['login']));
 				if($donnees=$requeteID->fetch()){
 					$_SESSION['id']=$donnees['idOperateur'];
 				}
 				include("operateur.php");
-			}
 		}
 
 		if($_SESSION['type']=='Administrateur'){

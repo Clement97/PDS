@@ -37,7 +37,8 @@
                 		<input type="submit" value="Reserver" formenctype=""/></br></br>
 
   						<?php 
-                			if(isset($_POST['date'])&&isset($_POST['duree'])&&isset($_POST['box'])){
+                        if(isset($_SESSION['idAnimal'])){
+                            if(isset($_POST['date'])&&isset($_POST['duree'])&&isset($_POST['box'])){
                                 if (! (empty($_POST['date'])||empty($_POST['duree'])||empty($_POST['box']))){
 
                                     $appelProcedure='CALL P_Reservation('.$_SESSION['idAnimal'].',\''.$_POST['date'].'\','.$_POST['duree'].',0,'.convertBox($_POST['box']).',';
@@ -50,7 +51,7 @@
                                     include("Script_PHP/BDDAccess.php");
                                     if(reservationEffectuee($appelProcedure)==1){
                                         echo("<script> alert('La reservation a bien été effectuée')</script>");
-                                        include("Script_PHP/Administrateur/GestionComptes.php"); 
+                                        echo("<meta http-equiv=\"refresh\" content=\"1;url=espacePrive.php?init=1\"/>");
                                     }
                                     else{
                                         $requete=$bdd->query($appelProcedure);
@@ -59,44 +60,49 @@
                                         }
                                     }
                                 }
-                			} 
+                            } 
+                        }
                         ?>
                 	</fieldset>
                     <?php
-                        include("Script_PHP/BDDAccess.php");
-                        $requete=$bdd->query('select type from Animal where idAnimal='.$_SESSION['idAnimal']);
-                        if($donnees=$requete->fetch())
-                            if($donnees['type']=='chien') 
-                            echo("
-                                    <script>
-                                    var textNodes=[
-                                        'checkbox',
-                                        'Promenade',
-                                    ];
+                        if(isset($_SESSION['idAnimal'])){
+                            include("Script_PHP/BDDAccess.php");
+                            $requete=$bdd->query('select type from Animal where idAnimal='.$_SESSION['idAnimal']);
+                            if($donnees=$requete->fetch())
+                                if($donnees['type']=='chien'){
+                                echo("
+                                        <script>
+                                        var textNodes=[
+                                            'checkbox',
+                                            'Promenade',
+                                        ];
 
-                                        var input=document.createElement('input'); 
-                                        input.type=textNodes[0];
-                                        input.name=textNodes[1];
-                                        input.id=textNodes[1];
+                                            var input=document.createElement('input'); 
+                                            input.type=textNodes[0];
+                                            input.name=textNodes[1];
+                                            input.id=textNodes[1];
 
-                                        var label=document.createElement('label');
-                                        label.for=textNodes[1];
-                                        label.innerHTML=textNodes[1];
+                                            var label=document.createElement('label');
+                                            label.for=textNodes[1];
+                                            label.innerHTML=textNodes[1];
 
-    
-                                        var br=document.createElement('br');
-                                        
-                                        var div=document.createElement('div');
-                                        div.appendChild(input);
-                                        div.appendChild(label);
-                                        div.appendChild(br);
-                                        div.appendChild(br.cloneNode(false));
-                                        
-                                        var divInsert=document.querySelector('div#insertion');
-                                        
-                                        divInsert.appendChild(div);
+        
+                                            var br=document.createElement('br');
+                                            
+                                            var div=document.createElement('div');
+                                            div.appendChild(input);
+                                            div.appendChild(label);
+                                            div.appendChild(br);
+                                            div.appendChild(br.cloneNode(false));
+                                            
+                                            var divInsert=document.querySelector('div#insertion');
+                                            
+                                            divInsert.appendChild(div);
 
-                                    </script>");
+                                        </script>");
+
+                                }
+                        }
                     ?>
 
                 </form>

@@ -45,7 +45,8 @@
     }
     else{
     	echo("<script> alert('Ce client n\'a pas de réservations actuellement'); </script>");
-        include("Script_PHP/Opérateur/GestionComptes.php"); 
+        unset($_SESSION['action']);
+        include("Script_PHP/Operateur/GestionClient.php"); 
     }
     while($donnees=$requete -> fetch()){
     echo("
@@ -62,6 +63,7 @@
                 </tr>    "); 
     }
     echo("  </table>"); 
+    unset($_SESSION['idClient']);
 ?>
                                 <script>
 

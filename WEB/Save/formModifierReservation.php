@@ -26,7 +26,7 @@
 ?>
 
             <h2>Modification réservation </h2>
-                <form method="post" action="espacePrive.php">
+                <form method="post" action="client.php">
                     <fieldset>
                         <div id="input">
                         <label for="date" class="pt"> Date d'entrée de votre animal:  </label></br>
