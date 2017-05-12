@@ -2,16 +2,22 @@
 	include("Script_PHP/BDDAccess.php");
 
 	function sameMail($mail,$idClient){
-		$requete=$bdd->query('select email from Client where idClient=\''.$idClient'\'');
+		$requete=$bdd->query('select email from Client where idClient='.$idClient.'');
 		if($mail==$requete['email']) return true;
+		return false;
+	}
+
+	function mailExist($mail){
+		$requete=$bdd->query('select email from Client where email=\''.$mail'\'');
+		if($donnees=$requete->fetch()){ 
+			return true;
+		}
+		return false;
 	}
 
 
 	if(isset($_POST['mail'])){
-		$requete=$bdd->prepare('select * from Client where email=?'); 
-		$requete->execute(array($_POST['mail']));
-
-		if($donnees=$requete->fetch()){ 
+		if(!sameMail($_POST['mail'],$_SESSION['idClient']&&mailExist($_POST['mail']))){ 
 			echo('<script> alert("Cette adresse email est déjà lié à un compte ")</script>');
 		}
 		else{

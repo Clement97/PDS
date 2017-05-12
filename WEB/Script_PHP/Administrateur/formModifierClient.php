@@ -11,7 +11,7 @@
                     </p>
                 </div>
                 <div class="insbloc">
-                    <form method="post" action="inscription.php" onsubmit="return (nomOK && prenomOK && telOK && adresseOK && mailOK && confMailOK && passwordOK && confPasswordOK);">
+                    <form method="post" action="espacePrive.php" onsubmit="return (nomOK && prenomOK && telOK && adresseOK && mailOK && confMailOK && passwordOK && confPasswordOK);">
                         <table>
                             <tr>
                                 <td>
@@ -61,5 +61,5 @@
                 </div>
             </div>
         </div>
-        <?php include("Script_PHP/Client/traitementModificationClient.php") ?>
+        <?php include("Script_PHP/Administrateur/traitementModificationClient.php")  ?>
         <script type="text/javascript" src="Script_JS/verifFormInscription.js"></script>

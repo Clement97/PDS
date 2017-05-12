@@ -44,10 +44,12 @@
 				if(testTableAdminVide()){
 					$login='root';
 					$password=password_hash('toor',PASSWORD_DEFAULT);
-					$creationAdmin=$bdd->prepare('insert into Administrateur(login,password) values(:login,:password)');
+					$creationAdmin=$bdd->prepare('insert into Administrateur(login,password,nom,prenom) values(:login,:password,:nom,:prenom)');
 					$creationAdmin->execute(array(
 						'login'=>$login,
-						'password'=>$password));
+						'password'=>$password,
+						'nom'=>'',
+						'prenom'=>''));
 
 				}
 				$requeteAdministrateur=$bdd->prepare('select login,password from Administrateur where login=?');

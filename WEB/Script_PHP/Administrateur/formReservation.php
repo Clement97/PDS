@@ -56,7 +56,6 @@
                                         $requete=$bdd->query($appelProcedure);
                                         if($donnees = $requete->fetch()){
                                                 echo($donnees['Erreur']);
-                                                echo 'test1';
                                         }
                                     }
                                 }
